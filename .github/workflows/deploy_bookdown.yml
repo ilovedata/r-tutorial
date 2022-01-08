@@ -19,7 +19,7 @@ jobs:
           pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
       - run: echo "# Test" | pandoc -t html
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+        run: Rscript -e 'install.packages(c("rmarkdown","bookdown","knitr","kableExtra","tidyverse", "readxl"))'
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd","bookdown::gitbook")'
       - uses: actions/upload-artifact@v1
