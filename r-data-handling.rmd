@@ -1,0 +1,209 @@
+# 데이터 다루기 {#dataframe}
+
+
+**R** 프로그램을 이용한 자료의 처리와 시각화의 기초를 다음의 3개의 패키지를 이용하여 알아보도록 하자. 
+
+- **dplyr** : **R**의 기본적인 **data.frame**에서 자료를 조건에 따라 선택하고, 배열하고, 결합하고, 요약하는데 편리한 함수을 제공하는 패키지이다.
+- **tidyr** : 자료를 조건에 따라 배열을 바꾸는 함수를 제공하는 패키지이다.
+- **ggplot2** : 다양한 그림을 그리는데 유용한 패키지이다.
+
+
+통계분석을 위하여 구성된 자료는 매우 다양한 형태를 가질 수 있다. 자료를 저장하는 형식은 자료를 구성하는 방법에 의해 매우 다르게 나타난다.  자료를 다음과 같이 간결하게 재구성하면 일관성있게  통계분석을 위한 함수를 사용할 수 있다. 다음은 자료를 재구성하는 경우의 원칙이다.
+ 
+ - 데이터 프레임의 각 열은 변수(variable, feature)를 나타낸다.
+ - 데이터 프레임의 각 행은 조사 또는 관측 단위(observation)을 나타낸다.
+ 
+![간결한 자료: tydy data](./myimages/tidy-1.png)
+
+## **tidyr** 패키지 
+
+**tidyr** 에 조건에 따라 자료를 재배치하는데 매우 유용한 패키지이다. 여러 개의 유용한 함수들중에서 가장 자주 사용되고 중요한  4개의  함수에 대하여 알아보기로 하자.
+
+## `gather()` 
+
+`gather()` 함수는 여러 개의 변수(속성들)을 선택하여 변수의 속성(key)과 각 해당하는 자료의 값(value)를  두 개의 열로 길게 배열하는 함수이다. 
+
+간단한 예를 들면 전자판매점에서 3명의 점원이 판매한 3개의 품목의 수량을 나타내는 자료이다.  
+```{r data1}
+sales <- data.frame(
+  person = c("John", "Mary", "Steve"),
+  tv = c(2, 1, 3),
+  cellphone = c(20, 25, 30),
+  computer = c(4, 4, 4)
+)
+sales
+```
+위의 `sales` 자료에서 `tv`, `cellphone`,`computer` 는 판매점에 진영된 여러 가지 품목(`item`)중의 하나이다. 또한 자료에 있는 숫자들은 각 품목을 판매한 수량(`quantity`)이다. 3개의 제품을 속성(key 또는 attribute)으로 가지는 **품목**을 새로운 변수 `item` 으로 만들고, 각 품목에 대한 판매 **수량**이 새로운 변수 `quantity`로 나타나는 자료를 다음과 같이 만들 수 있다.
+```{r gather1}
+gathered_sales <- gather(sales, item, quantity, tv, cellphone,computer)
+gathered_sales
+```
+`gather()` 함수는 행으로 길게 늘어진 자료를 열로 길게 즐어지게 만드는 기능을 하는 함수이다.
+![`gather()`함수의 기능](./myimages/plot-gather.png)
+
+## `spread()` 
+
+`spread()` 함수의 기능은 `gether()`함수와 반대되는 작업을 수행하는 함수로 2개의 열(하나는 속성, 다른 하나는 값) 선택하여 변수의 속성들을 변수들로 변환하여 해당하는 자료의 값 하나의 행으로 길게 배열하는 함수이다. 위에서 `gather()`함수로 변환된 자료를 `spread()` 함수를 이용하여 다시 원래 자료로 변화할 수 있다.    
+```{r spread}
+spread_sales <- spread(gathered_sales, item, quantity)
+spread_sales
+```
+`spread()` 함수는 열으로 길게 늘어진 자료를 행로 길게 즐어지게 만드는 기능을 하는 함수이다.
+![`spread()`함수의 기능](./myimages/plot-spread.png)
+
+## **dplyr** 패키지와 연결 연산자 **%>%**
+
+**dplyr** 패키지는 다음과 같은 기능을 가진 함수를 제공한다.
+
+- `select()` 자료의 변수를 부분적으로 선택한다.
+- `filter()` 자료를 일부를 주너진 조건에 따라서 선택한다.
+- `arrage()` 자료(행)가 배열된 순서를 바꾼다.
+- `mutate()` 새로운 변수를 만든다.
+- `group_by()` 범주형 변수에 의하여 자료를 그룹으로 나눈다.
+- `summarise()` 자료를 주어진 함수에 따라 요약한다.
+- `join()` 두 개의 자료를 결합한다.
+
+
+**dplyr** 패키지에 있는 함수의 기능을 설명하기 위하여 **hflight** 패키지에 포함된 여객기의 비행기록자료를 사용해보자.
+```{r data2}
+library(hflights)
+data(hflights)
+head(hflights)
+```
+
+## `select()` 
+
+`select()` 함수는 자료의 변수를 부분적으로 선택한다. 다음은 `hflights`자료에서 3개의 변수를 이름으로 선택하는 경우이다.
+```{r}
+head(select(hflights, DepTime, ArrTime, FlightNum))
+```
+다음은 변수들의 순서를 주거나 (`var1:var2`) 특정 문자가 변수명에 포함된 변수를 선택하는 경우이다.
+```{r}
+head(select(hflights, Year:Month, contains("time")))
+```
+`select()` 함수는 `starts_with()`, `ends_with()`, `matches()` 그리고 `contains()`와 같은 도움 함수들을 이용하여 변수명을 선택할 수 있다.
+
+## `filter()` 
+
+`filter()` 함수는 자료를 일부를 주너진 조건에 따라서 선택한다. `hflights`자료에서 12월 25일에 출발한 비행기만을 선택하는 조건을 다음과 같이 적용할 수 있다.
+```{r}
+head(filter(hflights, Month==12, DayofMonth==25))
+```
+
+두 조건을 **OR** 로 하여 자료의 일부를 선택하려면 `|` 연산자를 이용한다.
+```{r}
+filter(hflights, UniqueCarrier=="AA" | UniqueCarrier=="UA") %>% head()
+```
+
+## 연결연산자 `%>%`의 이용 
+
+위의 프로그램에서 앞에서와 다르게 `head()`함수를 `head(filter(....))`와 같이 축차적으로  사용하지 않고 연산자 `%>%` 뒤에 인자없이 사용하였다.  연산자 `%>%`는 연결 연산자(pipe operator)라고 하며 함수를 축차적으로 연속하여 사용하지 않고 왼쪽에서 생성된 자료를 오른쪽 함수의 인자로 전달 해주는 역활을 하는 유용한 연산자이며 이를 이용하려면  `tidyr` 패키지를 로딩해야 한다.
+
+예를 들어 `hflights`자료에서  12월 25일에 출발한 비행기만을 선택하고 다시 몇 개의 변수만 선택하여 자료의 앞부분만 보여주고 싶다면 다음과 같이  연결 연산자를 이용하여 실행할 수 있다.
+```{r}
+filter(hflights, Month==12, DayofMonth==25) %>% select(DepTime, ArrTime, FlightNum, contains("Month")) %>% head()
+```
+
+위에서 연결 연산자를 이용하여 실행한 명령어는 다음 명령어의 결과와 같다.
+```{r}
+t1 <- filter(hflights, Month==12, DayofMonth==25) 
+t2 <- select(t1, DepTime, ArrTime, FlightNum, contains("Month")) 
+head(t2)
+```
+
+
+## `arrange()` 
+
+`arrage()` 함수는 자료의 행이 배열된 순서를 선택된 변수의 배열(오름차순 또는 내림차순)로 바꾼다.
+
+`hflights` 자료에서 두 변수 `TailNum`와  `ArrDelay`만을 선택하고 `ArrDelay`의 자료의 오름차순으로 다시 배열하려면 다음과 같은 명령어를 사용한다.
+```{r}
+hflights %>% select(TailNum, ArrDelay) %>%
+    arrange(ArrDelay) %>% head()
+```
+`ArrDelay`의 자료의 오름차순으로 다시 배열하려면 `desc()` 도움함수를 사용한다.
+```{r}
+hflights %>% select(TailNum, ArrDelay) %>%
+    arrange(desc(ArrDelay)) %>% head()
+```
+
+## `mutate()` 
+
+`mutate()` 함수는 새로운 변수를 생성하는 함수이다. 예를 들어 `hflight`자료에서 
+새로운 변수 비행기의 속도(`AirSpeed`)를 계산하려면 비행거리(`Distance`)를 비행시간(`AirTime`)으로 나누어야 한다. `mutate()` 함수를 이용하면 두 개 이상의 새로운 변수를 사용할 수 있다. 
+```{r}
+mutate(hflights, Speed = Distance/AirTime*69, SpeedKM = Speed*1.60934) %>% head()
+```
+
+새로 생성된 변수만 선택하고 싶다면 `transmute()`함수를 사용한다.
+```{r }
+transmute(hflights, Speed = Distance/AirTime*69, SpeedKM = Speed*1.60934) %>% head()
+```
+
+## `group_by()` 와 `summarise()`
+
+통계분석에서 범주(categorical variable)에 따라 자료의 요약을 하는 것은 매우 흔한 일이다. `group_by()` 함수는 자료를 선택된 범주형 변수에 의하여 묶어주는 기능을 하며 `group_by()` 함수는 특별한 결과를 생성하지 않고 자료(`dataframe`)에 그룹에 대한 정보를 저장한다. 
+
+`group_by()` 에 의하여 그룹이 생성된 자료(`dataframe`)에 `summarise()`를 이용하여  통계 함수를 적용하면 지정된 그룹별로 요약 통계량이 기술된다.  
+
+다음의 예는 `hflight` 자료에서 도착공항별(`Dest`)로 도착이 지연된 시간(`ArrDelay`)의 평균을 구하는 명령어이다.
+```{r}
+groupdata <- group_by(hflights, Dest)
+summarise(groupdata, avg_delay = mean(ArrDelay, na.rm=TRUE))
+```
+위의 명령어는 다음 명령어와 같은 결과를 준다.
+```{r}
+hflights %>%
+    group_by(Dest) %>%
+     summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))
+```
+물론 그룹을 지정하지 않고 전체 자료의 통계도 구할 수 있다.
+```{r}
+summarise(hflights,avg_delay = mean(ArrDelay, na.rm=TRUE))
+```
+또한 다음과 같이 여러 개의 통계량을 동시에 구할 수 있다.
+```{r}
+groupdata <- group_by(hflights, Dest)
+summarise(groupdata, avg_delay = mean(ArrDelay, na.rm=TRUE), 
+  count = n(),
+  dist = mean(Distance, na.rm = TRUE),
+  delay = mean(ArrDelay, na.rm = TRUE))
+```
+여러 개의 변수에 같은 함수를 동시에 적용하려면 `summarise_at()` 함수를 사용한다. 다음은 공항별로 2개의 변수( `ArrDelay`, `DepDelay`)의 평균, 최소, 최대값을 구하는 명령어이다.
+```{r}
+group_by(hflights, Dest)  %>%  summarise_at( c("ArrDelay", "DepDelay"), funs(mean(., na.rm=TRUE), min (., na.rm=TRUE),   max(., na.rm=TRUE)))
+```
+
+
+위에서 함수 `summarise`의 결과는 **dataframe**보다 자료 저장의 형식이 개선된  
+`tibble` 형식으로 표시된다. 
+
+
+## `join()`
+
+`join()` 함수는 두 자료(`dataframe`)를 선택된 공통의 범주형 변수에 의거하여  결합한다. 결합하는 경우 두 개의 인자의 위치에 따른  4가지의 결합기준을 이용할 수 있다.
+
+- left_join 왼쪽 자료의 항목을 기준으로 결합
+- right_join 오른쪽 쪽 자료의 항목을 기준으로 결합
+- inner_join 두 자료의 공통 항목만을 결합
+- full_join 두 자료의 모든 항목을 결합
+![`join()` 함수의 4가지 기준](./myimages/plot-join.png)
+
+다음과 같은 두 개의 자료(`dataframe`)을 이용하여 자료를 결합할 때 4가지 기분의 차이점을 살펴보자.
+```{r two data}
+Ldata <- data.frame(ID=c("A","B","C"), x=c(1,2,3))
+Rdata <- data.frame(ID=c("A","B","D"),  y=c(T,F,T))
+```
+```{r}
+Ldata
+```
+```{r}
+Rdata
+```
+```{r}
+left_join(Ldata,Rdata,by="ID")
+right_join(Ldata,Rdata,by="ID")
+inner_join(Ldata,Rdata,by="ID")
+full_join(Ldata,Rdata,by="ID")
+```
+

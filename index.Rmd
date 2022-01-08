@@ -1,0 +1,77 @@
+--- 
+title: "R 을 이용한 데이터 과학 입문"
+author: "서울시립대학교 통계학과 이용희"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+ R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다.
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+fontsize: 10pt
+github-repo: rstudio/bookdown-demo
+---
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+library(knitr)
+library(tidyverse)
+library(tidyr)
+library(ggplot2)
+library(kableExtra)
+library(equatiomatic)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(modelsummary)
+library(flextable)
+library(xfun)
+library(readxl)
+
+
+# 아래 3 문장은 한글을 포함한 ggplot 그림이 포함된 HTML, PDF로 만드는 경우 사용
+library(showtext)
+font_add_google("Nanum Pen Script", "gl")
+showtext_auto()
+# R tidy option
+tidy.opts=list(arrow=TRUE, indent=2)
+# 출력 선택 변수 
+is_html <- knitr::is_html_output()
+is_latex <- knitr::is_latex_output()
+```
+
+# 서론 
+
+R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다.
+
+$$ y =f(x) $$
+
+이 책에서 이용한 패키지의 목록은 다음과 같습니다.
+
+```
+library(knitr)
+library(tidyverse)
+library(tidyr)
+library(ggplot2)
+library(kableExtra)
+library(equatiomatic)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(modelsummary)
+library(flextable)
+library(xfun)
+library(readxl)
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
