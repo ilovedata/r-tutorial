@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Page not found | R 을 이용한 데이터 과학 입문</title>
+  <meta name="description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Page not found | R 을 이용한 데이터 과학 입문" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Page not found | R 을 이용한 데이터 과학 입문" />
+  
+  <meta name="twitter:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  
+
+<meta name="author" content="서울시립대학교 통계학과 이용희" />
+
+
+<meta name="date" content="2022-01-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R 을 이용한 데이터 과학 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 서론</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> R 소개</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#통계패키지-r"><i class="fa fa-check"></i><b>2.1</b> 통계패키지 R</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#r-다운로드-받기"><i class="fa fa-check"></i><b>2.2</b> R 다운로드 받기</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#rstudio-다운로드-받기"><i class="fa fa-check"></i><b>2.3</b> Rstudio 다운로드 받기</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>3</b> R 기초</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic.html"><a href="basic.html#r-의-계산기-기능"><i class="fa fa-check"></i><b>3.1</b> R 의 계산기 기능</a></li>
+<li class="chapter" data-level="3.2" data-path="basic.html"><a href="basic.html#기본-수학함수"><i class="fa fa-check"></i><b>3.2</b> 기본 수학함수</a></li>
+<li class="chapter" data-level="3.3" data-path="basic.html"><a href="basic.html#도움말"><i class="fa fa-check"></i><b>3.3</b> 도움말</a></li>
+<li class="chapter" data-level="3.4" data-path="basic.html"><a href="basic.html#벡터"><i class="fa fa-check"></i><b>3.4</b> 벡터</a></li>
+<li class="chapter" data-level="3.5" data-path="basic.html"><a href="basic.html#벡터에-대한-함수의-적용"><i class="fa fa-check"></i><b>3.5</b> 벡터에 대한 함수의 적용</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="basic.html"><a href="basic.html#데이타프레임"><i class="fa fa-check"></i><b>3.5.1</b> 데이타프레임</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="basic.html"><a href="basic.html#간단한-그림-그리기"><i class="fa fa-check"></i><b>3.6</b> 간단한 그림 그리기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataframe.html"><a href="dataframe.html"><i class="fa fa-check"></i><b>4</b> 데이터 다루기</a><ul>
+<li class="chapter" data-level="4.1" data-path="dataframe.html"><a href="dataframe.html#tidyr-패키지"><i class="fa fa-check"></i><b>4.1</b> <strong>tidyr</strong> 패키지</a></li>
+<li class="chapter" data-level="4.2" data-path="dataframe.html"><a href="dataframe.html#gather"><i class="fa fa-check"></i><b>4.2</b> <code>gather()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="dataframe.html"><a href="dataframe.html#spread"><i class="fa fa-check"></i><b>4.3</b> <code>spread()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="dataframe.html"><a href="dataframe.html#dplyr-패키지와-연결-연산자"><i class="fa fa-check"></i><b>4.4</b> <strong>dplyr</strong> 패키지와 연결 연산자 <strong>%&gt;%</strong></a></li>
+<li class="chapter" data-level="4.5" data-path="dataframe.html"><a href="dataframe.html#select"><i class="fa fa-check"></i><b>4.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="dataframe.html"><a href="dataframe.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.7" data-path="dataframe.html"><a href="dataframe.html#연결연산자-의-이용"><i class="fa fa-check"></i><b>4.7</b> 연결연산자 <code>%&gt;%</code>의 이용</a></li>
+<li class="chapter" data-level="4.8" data-path="dataframe.html"><a href="dataframe.html#arrange"><i class="fa fa-check"></i><b>4.8</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.9" data-path="dataframe.html"><a href="dataframe.html#mutate"><i class="fa fa-check"></i><b>4.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="dataframe.html"><a href="dataframe.html#group_by-와-summarise"><i class="fa fa-check"></i><b>4.10</b> <code>group_by()</code> 와 <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.11" data-path="dataframe.html"><a href="dataframe.html#join"><i class="fa fa-check"></i><b>4.11</b> <code>join()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="external.html"><a href="external.html"><i class="fa fa-check"></i><b>5</b> 외부자료</a><ul>
+<li class="chapter" data-level="5.1" data-path="external.html"><a href="external.html#예제-엑셀-화일의-구성"><i class="fa fa-check"></i><b>5.1</b> 예제: 엑셀 화일의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="external.html"><a href="external.html#패키지의-설치와-이용-지정"><i class="fa fa-check"></i><b>5.2</b> 패키지의 설치와 이용 지정</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="external.html"><a href="external.html#패키지-readxl의-설치"><i class="fa fa-check"></i><b>5.2.1</b> 패키지 <code>readxl</code>의 설치</a></li>
+<li class="chapter" data-level="5.2.2" data-path="external.html"><a href="external.html#패키지의-지정"><i class="fa fa-check"></i><b>5.2.2</b> 패키지의 지정</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="external.html"><a href="external.html#엑셀-화일의-입력"><i class="fa fa-check"></i><b>5.3</b> 엑셀 화일의 입력</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="external.html"><a href="external.html#working-directory-지정"><i class="fa fa-check"></i><b>5.3.1</b> <strong>working directory</strong> 지정</a></li>
+<li class="chapter" data-level="5.3.2" data-path="external.html"><a href="external.html#엑셀-화일의-입력-1"><i class="fa fa-check"></i><b>5.3.2</b> 엑셀 화일의 입력</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="external.html"><a href="external.html#csv-화일의-입력"><i class="fa fa-check"></i><b>5.4</b> CSV 화일의 입력</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 을 이용한 데이터 과학 입문</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\pardiff}[2]{\frac{\partial #1}{\partial #2 }}
+\newcommand{\pardiffl}[2]{{\partial #1}/{\partial #2 }}
+\newcommand{\pardiffd}[2]{\frac{\partial^2 #1}{\partial #2^t \partial #2 }}
+\newcommand{\pardiffdd}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3 }}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\hatmat}{\bm X ({\bm X}^t {\bm X} )^{-1} {\bm X}^t}
+\newcommand{\hatmatt}[1]{\bm X_{#1} ({\bm X}_{#1}^t {\bm X}_{#1})^{-1} {\bm X}_{#1}^t}
+\)
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rtututorial.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

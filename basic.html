@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>제 3 장 R 기초 | R 을 이용한 데이터 과학 입문</title>
+  <meta name="description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="제 3 장 R 기초 | R 을 이용한 데이터 과학 입문" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="제 3 장 R 기초 | R 을 이용한 데이터 과학 입문" />
+  
+  <meta name="twitter:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  
+
+<meta name="author" content="서울시립대학교 통계학과 이용희" />
+
+
+<meta name="date" content="2022-01-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="dataframe.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R 을 이용한 데이터 과학 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 서론</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> R 소개</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#통계패키지-r"><i class="fa fa-check"></i><b>2.1</b> 통계패키지 R</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#r-다운로드-받기"><i class="fa fa-check"></i><b>2.2</b> R 다운로드 받기</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#rstudio-다운로드-받기"><i class="fa fa-check"></i><b>2.3</b> Rstudio 다운로드 받기</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>3</b> R 기초</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic.html"><a href="basic.html#r-의-계산기-기능"><i class="fa fa-check"></i><b>3.1</b> R 의 계산기 기능</a></li>
+<li class="chapter" data-level="3.2" data-path="basic.html"><a href="basic.html#기본-수학함수"><i class="fa fa-check"></i><b>3.2</b> 기본 수학함수</a></li>
+<li class="chapter" data-level="3.3" data-path="basic.html"><a href="basic.html#도움말"><i class="fa fa-check"></i><b>3.3</b> 도움말</a></li>
+<li class="chapter" data-level="3.4" data-path="basic.html"><a href="basic.html#벡터"><i class="fa fa-check"></i><b>3.4</b> 벡터</a></li>
+<li class="chapter" data-level="3.5" data-path="basic.html"><a href="basic.html#벡터에-대한-함수의-적용"><i class="fa fa-check"></i><b>3.5</b> 벡터에 대한 함수의 적용</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="basic.html"><a href="basic.html#데이타프레임"><i class="fa fa-check"></i><b>3.5.1</b> 데이타프레임</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="basic.html"><a href="basic.html#간단한-그림-그리기"><i class="fa fa-check"></i><b>3.6</b> 간단한 그림 그리기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataframe.html"><a href="dataframe.html"><i class="fa fa-check"></i><b>4</b> 데이터 다루기</a><ul>
+<li class="chapter" data-level="4.1" data-path="dataframe.html"><a href="dataframe.html#tidyr-패키지"><i class="fa fa-check"></i><b>4.1</b> <strong>tidyr</strong> 패키지</a></li>
+<li class="chapter" data-level="4.2" data-path="dataframe.html"><a href="dataframe.html#gather"><i class="fa fa-check"></i><b>4.2</b> <code>gather()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="dataframe.html"><a href="dataframe.html#spread"><i class="fa fa-check"></i><b>4.3</b> <code>spread()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="dataframe.html"><a href="dataframe.html#dplyr-패키지와-연결-연산자"><i class="fa fa-check"></i><b>4.4</b> <strong>dplyr</strong> 패키지와 연결 연산자 <strong>%&gt;%</strong></a></li>
+<li class="chapter" data-level="4.5" data-path="dataframe.html"><a href="dataframe.html#select"><i class="fa fa-check"></i><b>4.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="dataframe.html"><a href="dataframe.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.7" data-path="dataframe.html"><a href="dataframe.html#연결연산자-의-이용"><i class="fa fa-check"></i><b>4.7</b> 연결연산자 <code>%&gt;%</code>의 이용</a></li>
+<li class="chapter" data-level="4.8" data-path="dataframe.html"><a href="dataframe.html#arrange"><i class="fa fa-check"></i><b>4.8</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.9" data-path="dataframe.html"><a href="dataframe.html#mutate"><i class="fa fa-check"></i><b>4.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="dataframe.html"><a href="dataframe.html#group_by-와-summarise"><i class="fa fa-check"></i><b>4.10</b> <code>group_by()</code> 와 <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.11" data-path="dataframe.html"><a href="dataframe.html#join"><i class="fa fa-check"></i><b>4.11</b> <code>join()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="external.html"><a href="external.html"><i class="fa fa-check"></i><b>5</b> 외부자료</a><ul>
+<li class="chapter" data-level="5.1" data-path="external.html"><a href="external.html#예제-엑셀-화일의-구성"><i class="fa fa-check"></i><b>5.1</b> 예제: 엑셀 화일의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="external.html"><a href="external.html#패키지의-설치와-이용-지정"><i class="fa fa-check"></i><b>5.2</b> 패키지의 설치와 이용 지정</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="external.html"><a href="external.html#패키지-readxl의-설치"><i class="fa fa-check"></i><b>5.2.1</b> 패키지 <code>readxl</code>의 설치</a></li>
+<li class="chapter" data-level="5.2.2" data-path="external.html"><a href="external.html#패키지의-지정"><i class="fa fa-check"></i><b>5.2.2</b> 패키지의 지정</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="external.html"><a href="external.html#엑셀-화일의-입력"><i class="fa fa-check"></i><b>5.3</b> 엑셀 화일의 입력</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="external.html"><a href="external.html#working-directory-지정"><i class="fa fa-check"></i><b>5.3.1</b> <strong>working directory</strong> 지정</a></li>
+<li class="chapter" data-level="5.3.2" data-path="external.html"><a href="external.html#엑셀-화일의-입력-1"><i class="fa fa-check"></i><b>5.3.2</b> 엑셀 화일의 입력</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="external.html"><a href="external.html#csv-화일의-입력"><i class="fa fa-check"></i><b>5.4</b> CSV 화일의 입력</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 을 이용한 데이터 과학 입문</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\pardiff}[2]{\frac{\partial #1}{\partial #2 }}
+\newcommand{\pardiffl}[2]{{\partial #1}/{\partial #2 }}
+\newcommand{\pardiffd}[2]{\frac{\partial^2 #1}{\partial #2^t \partial #2 }}
+\newcommand{\pardiffdd}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3 }}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\hatmat}{\bm X ({\bm X}^t {\bm X} )^{-1} {\bm X}^t}
+\newcommand{\hatmatt}[1]{\bm X_{#1} ({\bm X}_{#1}^t {\bm X}_{#1})^{-1} {\bm X}_{#1}^t}
+\)
+<div id="basic" class="section level1">
+<h1><span class="header-section-number">제 3 장</span> R 기초</h1>
+<div id="r-의-계산기-기능" class="section level2">
+<h2><span class="header-section-number">3.1</span> R 의 계산기 기능</h2>
+<p>간단한 명령을 몇 가지 살펴보자.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic.html#cb2-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="basic.html#cb4-1"></a><span class="dv">4</span><span class="op">*</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="basic.html#cb6-1"></a><span class="dv">5</span><span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basic.html#cb8-1"></a><span class="dv">3</span><span class="op">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<p>결과를 보면 알 수 있겠지만 <code>+</code>는 덧셈, <code>-</code>는 뻴셈, <code>*</code>는 곱셈, <code>/</code>는 나눗셈이며 <code>^</code>은 거듭제곱을 뜻한다.
+계산 순서는 수학과 마찬가지로 괄호친 부분, 거듭제곱, 곱셈과 나눗셈, 덧셈과 뺄셈 순서로 왼쪽부터 계산한다.</p>
+<p># 표시가 붙으면 이하의 내용은 주석(comment)으로서 무시한다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="basic.html#cb10-1"></a><span class="co"># 주석문은 실행되지 않는다.</span></span>
+<span id="cb10-2"><a href="basic.html#cb10-2"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># 1과 1을 더한다</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>R은 <strong>변수(variable)</strong>에 값을 할당(assign)할 수 있다 ( <code>=</code> 또는 <code>&lt;-</code>). 아래에서 <code>x</code>, <code>y</code> 등이 변수이다.
+변수 이름은 알파벳과 숫자, 그리고 밑줄(_)과 마침표(.)로 지을 수 있으나 첫 글자는 알파벳으로 시작해야 한다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic.html#cb12-1"></a>x =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb12-2"><a href="basic.html#cb12-2"></a>y =<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb12-3"><a href="basic.html#cb12-3"></a>x <span class="op">+</span><span class="st"> </span>y</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="basic.html#cb14-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb14-2"><a href="basic.html#cb14-2"></a>y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">3</span>)</span>
+<span id="cb14-3"><a href="basic.html#cb14-3"></a>x <span class="op">+</span><span class="st"> </span>y</span></code></pre></div>
+<pre><code>## [1] 2.732051</code></pre>
+<p>변수에 저장할 수 있는 값은 숫자뿐만이 아니라 문자열도 저장할 수 있다. 문자열은 따옴표(<code>" "</code>)안에 문자를 넣어 만들 수 있다.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic.html#cb16-1"></a>t1 &lt;-<span class="st"> &quot;R은 통계 패키지이다&quot;</span></span>
+<span id="cb16-2"><a href="basic.html#cb16-2"></a>t2 &lt;-<span class="st"> &quot;My name is Tom &quot;</span></span></code></pre></div>
+</div>
+<div id="기본-수학함수" class="section level2">
+<h2><span class="header-section-number">3.2</span> 기본 수학함수</h2>
+<p>사칙연산 외의 다른 계산들은 함수를 이용한다.
+예를 들어 양의 제곱근을 구하려면 <code>sqrt</code> 함수를 쓴다.
+그 외에도 자주 쓰이는 함수로 <code>abs</code>, <code>exp</code>, <code>log</code>가 있다. <code>abs</code>는 절대값, <code>exp</code>는 <span class="math inline">\(e^x\)</span>, <code>log</code>는 로그값을 구한다.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic.html#cb17-1"></a><span class="kw">sqrt</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1.414214</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basic.html#cb19-1"></a><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basic.html#cb21-1"></a><span class="kw">exp</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 2.718282</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="basic.html#cb23-1"></a><span class="kw">log</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6931472</code></pre>
+<p>함수에는 기본값으로 설정된 부분들이 있다. 예를 들어 log 함수의 밑은 e가 기본값이다.
+다시 말해 자연로그를 구한다. 만약 <span class="math inline">\(\log_3(2)\)</span>를 구하고 싶다면 다음과 같이 밑을 지정해준다.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic.html#cb25-1"></a><span class="kw">log</span>(<span class="dv">2</span>, <span class="dt">base=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6309298</code></pre>
+</div>
+<div id="도움말" class="section level2">
+<h2><span class="header-section-number">3.3</span> 도움말</h2>
+<p>“?함수이름”과 같은 형식으로 입력하면 함수에 대한 도움말 창이 뜬다.
+R의 도움말은 매우 자세하고 대부분 예제를 제공하기 때문에 도움말을 읽어보고 예제를 따라해보면 특별한 교재없이도 많은 공부가 된다.</p>
+<p>도움말은 Rstudio은 <strong>plot</strong> 패널에서 <strong>help</strong> 탭(tab)을 선택하고 찾고자 하는 명령어를 입력하면 그에 대한 도움말을 보여준다.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="basic.html#cb27-1"></a>?log</span></code></pre></div>
+<p>만약 함수 이름 자체를 모를 때는 <code>help.search</code> 함수를 이용해 도움말을 검색한다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="basic.html#cb28-1"></a><span class="kw">help.search</span>(<span class="st">&quot;logarithm&quot;</span>)</span></code></pre></div>
+</div>
+<div id="벡터" class="section level2">
+<h2><span class="header-section-number">3.4</span> 벡터</h2>
+<p>R은 통계용 언어이므로 하나의 값을 다루는 경우보다 여러 개의 값을 한 번에 다뤄야하는 경우가 더 많다. 여러 개의 값을 나타내는 방법에는 벡터(vector), 리스트(list), 행렬(matrix), 데이터프레임(dataframe) 등 다양한 구조의 객체들이 있다.
+가장 기본적인 객체로서 여러 개의 자료를 나타내는 구조는 벡터로서 여러 개의 동일한 형식의 값들을 모아놓은 자료의 구조이다. 벡터는 <code>c</code> 함수를 이용해 만든다.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="basic.html#cb29-1"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="basic.html#cb31-1"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="basic.html#cb33-1"></a><span class="kw">c</span>(<span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;철수&quot;</span>,<span class="st">&quot;영희&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Tom&quot;  &quot;Jane&quot; &quot;철수&quot; &quot;영희&quot;</code></pre>
+<p>하나의 값과 벡터를 사칙연산을 하면 하나의 값이 벡터의 각 값에 반복해서 자동적으로 연산을 한다.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="basic.html#cb35-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 2 3 4</code></pre>
+<p>벡터끼리 사칙연산을 하면 두 벡터에서 같은 위치에 있는 값끼리 연산을 한다.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="basic.html#cb37-1"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## [1] 5 7 9</code></pre>
+<p>두 벡터의 길이가 다르면 짧은 쪽을 반복하여 처음부터 다시 적용한다.
+아래 첫 번째 예의 경우 1+3, 1+4를 하고 5와 6에는 다시 1과 2를 적용해서 계산을 한다.
+긴 벡터의 길이가 짧은 벡터의 길이의 배수인 것이 원칙이지만 그렇지 않더라도 경고(warning)만 뜰 뿐 계산은 된다.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="basic.html#cb39-1"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## [1] 4 6 6 8</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="basic.html#cb41-1"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## Warning in c(1, 2, 3) + c(4, 5, 6, 7): longer object length is not a multiple of
+## shorter object length</code></pre>
+<pre><code>## [1] 5 7 9 8</code></pre>
+<p>위의 결과를 보면 연산을 수행할 때 길이가 다른 벡터를 사용할 때는 원하지 않는 결과가 발생할 수 있으므로 주의가 필요하다.</p>
+<p>1,2,3,4..와 같이 순서대로 이어지는 정수열은 “시작:끝”과 같은 형태로 콜론(<code>:</code>)을 이용해서 벡터를 만들 수 있다.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="basic.html#cb44-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="basic.html#cb46-1"></a><span class="dv">3</span><span class="op">:</span><span class="dv">9</span></span></code></pre></div>
+<pre><code>## [1] 3 4 5 6 7 8 9</code></pre>
+<p>콜론 대신 <code>seq</code> 함수를 사용할 수 있다.
+<code>seq(끝)</code>, <code>seq(시작,끝)</code>, <code>seq(시작, 끝, 간격)</code>과 같은 형태로 사용한다.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="basic.html#cb48-1"></a><span class="kw">seq</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basic.html#cb50-1"></a><span class="kw">seq</span>(<span class="dv">3</span>,<span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## [1] 3 4 5 6 7</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="basic.html#cb52-1"></a><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>##  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="basic.html#cb54-1"></a><span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##  [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
+<p>같은 수가 반복되는 벡터를 만들 때는 <code>rep</code> 함수를 사용한다.
+<code>rep(값, 회수)</code>라고 하면 값을 회수만큼 반복한다.
+<code>rep(벡터, 회수)</code>라고 하면 벡터를 회수만큼 반복한다.
+<code>rep(벡터, 벡터)</code>라고 하면 왼쪽 벡터에 있는 값을 오른쪽 벡터에 있는 같은 자리의 회수만큼 반복한다.
+<code>length</code> 옵션을 주면 반복해서 해당 길이만큼 되도록 한다.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="basic.html#cb56-1"></a><span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="basic.html#cb58-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 1 2 3 1 2 3</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="basic.html#cb60-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 2 3 3 3</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="basic.html#cb62-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">length=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1</code></pre>
+<p>당연히 벡터도 변수에 할당할 수 있다.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="basic.html#cb64-1"></a>v =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span></code></pre></div>
+<p>벡터에서 위치로 한 값을 지정하고 싶으면 “변수이름[위치]”와 같은 표현을 사용한다. 위치는 벡터에 저장된 값들이 순서대로 1부터 시작하여 저장된 값의 개수까지 자연수로 표시된다.<br />
+만약 위치가 벡터의 길이를 초과하면 “값 없음(not available)”을 뜻하는 NA 표시가 뜬다.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="basic.html#cb65-1"></a>w &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;철수&quot;</span>,<span class="st">&quot;영희&quot;</span>)</span>
+<span id="cb65-2"><a href="basic.html#cb65-2"></a>w</span></code></pre></div>
+<pre><code>## [1] &quot;Tom&quot;  &quot;Jane&quot; &quot;철수&quot; &quot;영희&quot;</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="basic.html#cb67-1"></a>w[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Tom&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="basic.html#cb69-1"></a>w[<span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;영희&quot;</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="basic.html#cb71-1"></a>w[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>위치는 하나의 값이 아니라 여러 개의 숫자로 동시에 나타낼 수 있다.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic.html#cb73-1"></a>w[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Jane&quot; &quot;영희&quot;</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic.html#cb75-1"></a>abc &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb75-2"><a href="basic.html#cb75-2"></a>abc</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic.html#cb77-1"></a>abc[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic.html#cb79-1"></a>abc[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic.html#cb81-1"></a>abc[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>)]</span></code></pre></div>
+<pre><code>## [1] 2 4 6 8</code></pre>
+<p>벡터를 만드는 경우 주의할 점은 벡터는 같은 형식의 값들로 구성되어야 한다. 예를 들어 기본적으로 문자열과 숫자로 벡터를 만들 수 없다. 만약 아래와 같이 실수 0.1과 문자열 <code>"Tom"</code> 으로 벡터를 만들면 숫자 0.1234 이 문자열로 자동적으로 변환된다. 이러한 자동 변환은 가끔 편리할 수 있지만 예상하지 않은 결과를 초래할 수 있으므로 주의해야 한다.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic.html#cb83-1"></a>t3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1234</span>, <span class="st">&quot;Tom&quot;</span>)</span>
+<span id="cb83-2"><a href="basic.html#cb83-2"></a>t3</span></code></pre></div>
+<pre><code>## [1] &quot;0.1234&quot; &quot;Tom&quot;</code></pre>
+</div>
+<div id="벡터에-대한-함수의-적용" class="section level2">
+<h2><span class="header-section-number">3.5</span> 벡터에 대한 함수의 적용</h2>
+<p>하나의 값에 적용하는 함수를 벡터에 적용하면 사칙 연산의 경우와 마찬가지로 각각의 값에 적용한다.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic.html#cb85-1"></a>v &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb85-2"><a href="basic.html#cb85-2"></a>v</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic.html#cb87-1"></a><span class="kw">log</span>(v)</span></code></pre></div>
+<pre><code>##  [1] 0.0000000 0.6931472 1.0986123 1.3862944 1.6094379 1.7917595 1.9459101
+##  [8] 2.0794415 2.1972246 2.3025851</code></pre>
+<p>벡터에 적용할 때 하나의 값을 계산하는 함수도 있다. 아래 <code>mean</code>은 벡터의 평균을 구하는 함수이다.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="basic.html#cb89-1"></a><span class="kw">mean</span>(v)</span></code></pre></div>
+<pre><code>## [1] 5.5</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic.html#cb91-1"></a><span class="kw">sd</span>(v)</span></code></pre></div>
+<pre><code>## [1] 3.02765</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="basic.html#cb93-1"></a><span class="kw">sum</span>(v)</span></code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="basic.html#cb95-1"></a><span class="kw">min</span>(v)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="basic.html#cb97-1"></a><span class="kw">max</span>(v)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="basic.html#cb99-1"></a><span class="kw">summary</span>(v)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    3.25    5.50    5.50    7.75   10.00</code></pre>
+<p>위에서 나오는 여러 가지 함수는 벡터의 기초 통계량을 계산하는 함수들이다.</p>
+<ul>
+<li><code>mean</code>: 평균</li>
+<li><code>sd</code> : 표준편차(standard deviation)</li>
+<li><code>sum</code>: 합계</li>
+<li><code>min</code>: 최소값</li>
+<li><code>max</code>: 최대값</li>
+<li><code>summary</code> : 벡터의 요약 정보 (최소값, 1사분위수, 중앙값, 평균, 3사분위수, 최대값)</li>
+</ul>
+<div id="데이타프레임" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> 데이타프레임</h3>
+<p>데이타프레임(dataframe)은 여러 벡터들을 하나로 합쳐놓은 자료의 형태를 가진다. 흔히 사용하는 마이트로소프트사의 엑셀(MS Excel)에서 사용하는 스프레드쉬트(spread sheet) 형태를 가지는 자료이다.</p>
+<p>데이타프레임을 만드는 방법은 먼저 프레임에 포함될 같은 길이를 가지는 벡터들을 만들고 <code>data.frame</code>함수로 데이타프레임을 만들 수 있다.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="basic.html#cb101-1"></a>a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb101-2"><a href="basic.html#cb101-2"></a>a</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="basic.html#cb103-1"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;철이&quot;</span>,<span class="st">&quot;John&quot;</span>,<span class="st">&quot;순이&quot;</span>,<span class="st">&quot;Paul&quot;</span>,<span class="st">&quot;영희&quot;</span>)</span>
+<span id="cb103-2"><a href="basic.html#cb103-2"></a>b</span></code></pre></div>
+<pre><code>## [1] &quot;철이&quot; &quot;John&quot; &quot;순이&quot; &quot;Paul&quot; &quot;영희&quot;</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="basic.html#cb105-1"></a>c &lt;-<span class="kw">rnorm</span>(<span class="dv">5</span>,<span class="dv">100</span>,<span class="dv">10</span>) <span class="co"># 5 random numbers from Normal distribution N(100,10^2)</span></span>
+<span id="cb105-2"><a href="basic.html#cb105-2"></a>c</span></code></pre></div>
+<pre><code>## [1]  99.66793 110.84859  98.11399  78.60413  88.77826</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="basic.html#cb107-1"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ID=</span>a,  <span class="dt">Name=</span>b, <span class="dt">Salary=</span>c)</span>
+<span id="cb107-2"><a href="basic.html#cb107-2"></a>dat</span></code></pre></div>
+<pre><code>##   ID Name    Salary
+## 1  1 철이  99.66793
+## 2  2 John 110.84859
+## 3  3 순이  98.11399
+## 4  4 Paul  78.60413
+## 5  5 영희  88.77826</code></pre>
+<p>테이타프레임에서 하나의 벡터를 꺼내는 방법은 프레임이름뒤에 <code>$</code> 를 붙이고 벡터의 변수명을 붙이면 된다.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="basic.html#cb109-1"></a>dat<span class="op">$</span>Name</span></code></pre></div>
+<pre><code>## [1] &quot;철이&quot; &quot;John&quot; &quot;순이&quot; &quot;Paul&quot; &quot;영희&quot;</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="basic.html#cb111-1"></a>dat<span class="op">$</span>Salary</span></code></pre></div>
+<pre><code>## [1]  99.66793 110.84859  98.11399  78.60413  88.77826</code></pre>
+<p>데이타프레임의 자료의 일부를 추출하는 경우 행과 열의 위치를 지정하여 벡터와 유사하게 일부를 나타낼 수 있다. 그 형식은 <code>dataframe[행의 위치, 열의 위치]</code> 로 지정한다.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="basic.html#cb113-1"></a>dat[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="basic.html#cb115-1"></a>dat[<span class="dv">3</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;순이&quot;</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="basic.html#cb117-1"></a>dat[<span class="dv">10</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="basic.html#cb119-1"></a>dat[<span class="dv">3</span>,]</span></code></pre></div>
+<pre><code>##   ID Name   Salary
+## 3  3 순이 98.11399</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="basic.html#cb121-1"></a>dat[,<span class="dv">3</span>]  <span class="co"># dat$Salary와 같은 결과</span></span></code></pre></div>
+<pre><code>## [1]  99.66793 110.84859  98.11399  78.60413  88.77826</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="basic.html#cb123-1"></a>dat[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</span></code></pre></div>
+<pre><code>##   ID    Salary
+## 1  1  99.66793
+## 2  2 110.84859
+## 3  3  98.11399</code></pre>
+<p>R은 차제가 여러 가지 자료를 포함하고 있으서 자료의 이름을 입력하면 자료를 볼 수 있고 여러 가지 요약 통계를 볼수 있다. 아래에 나오는 <code>cars</code>라는 데이타프레임은 두 개의 벡터 <code>dist</code>와 <code>speed</code>를 포함하는 데이타프레임이다. <code>cars</code>데이타프레임은 자동차 운행시 브레이크를 밟았을 때 속도 <code>speed</code>에 따른 제동거리 <code>dist</code>를 실험으로 구성한 자료이다 (<code>?cars</code>를 이용하여 자료의 정보를 볼 수 있다)</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="basic.html#cb125-1"></a>cars</span></code></pre></div>
+<pre><code>##    speed dist
+## 1      4    2
+## 2      4   10
+## 3      7    4
+## 4      7   22
+## 5      8   16
+## 6      9   10
+## 7     10   18
+## 8     10   26
+## 9     10   34
+## 10    11   17
+## 11    11   28
+## 12    12   14
+## 13    12   20
+## 14    12   24
+## 15    12   28
+## 16    13   26
+## 17    13   34
+## 18    13   34
+## 19    13   46
+## 20    14   26
+## 21    14   36
+## 22    14   60
+## 23    14   80
+## 24    15   20
+## 25    15   26
+## 26    15   54
+## 27    16   32
+## 28    16   40
+## 29    17   32
+## 30    17   40
+## 31    17   50
+## 32    18   42
+## 33    18   56
+## 34    18   76
+## 35    18   84
+## 36    19   36
+## 37    19   46
+## 38    19   68
+## 39    20   32
+## 40    20   48
+## 41    20   52
+## 42    20   56
+## 43    20   64
+## 44    22   66
+## 45    23   54
+## 46    24   70
+## 47    24   92
+## 48    24   93
+## 49    24  120
+## 50    25   85</code></pre>
+<p>위에서 보았듯이 R은 계산과 분석에 필요한 기능을 함수(function)로 가지고 있으며 함수이름을 치고 괄호안에 필요한 정보를 넣으면 정보를 제공한다. 아래에서 <code>head</code> 함수는 자료의 앞부분만을 보는 기능을 하고 <code>summary</code> 함수는 자료 <code>cars</code>에 있는 변수들의 요약 통계량을 주는 기능을 가진다</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="basic.html#cb127-1"></a><span class="kw">head</span>(cars)</span></code></pre></div>
+<pre><code>##   speed dist
+## 1     4    2
+## 2     4   10
+## 3     7    4
+## 4     7   22
+## 5     8   16
+## 6     9   10</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="basic.html#cb129-1"></a><span class="kw">summary</span>(cars)</span></code></pre></div>
+<pre><code>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="basic.html#cb131-1"></a><span class="kw">dim</span>(cars)</span></code></pre></div>
+<pre><code>## [1] 50  2</code></pre>
+<p>위에서 함수 <code>dim</code>은 데이타프레임에서 자료의 갯수(50개)와 변수의 개수(2개)를 벡터 형식으로 알려준다.</p>
+</div>
+</div>
+<div id="간단한-그림-그리기" class="section level2">
+<h2><span class="header-section-number">3.6</span> 간단한 그림 그리기</h2>
+<p><code>cars</code>자료에 있는 <code>dist</code> 벡터의 히스토그램과 상자그림은 각각 <code>hist</code> 와 <code>boxplot</code> 함수로 그릴 수 있다.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="basic.html#cb133-1"></a><span class="kw">hist</span>(cars<span class="op">$</span>dist)</span></code></pre></div>
+<p><img src="Rtututorial_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="basic.html#cb134-1"></a><span class="kw">boxplot</span>(cars<span class="op">$</span>dist)</span></code></pre></div>
+<p><img src="Rtututorial_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>데이타프레임 전체에 <code>plot</code>함수를 적용하면 데이터프레임안에 있는 모든 변수들의 상자그림을 같이 그려준다.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="basic.html#cb135-1"></a><span class="kw">boxplot</span>(cars)</span></code></pre></div>
+<p><img src="Rtututorial_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><code>car</code>자료에 있는 두 변수의 산포도를 보려면 다음과 같은 <code>plot</code> 함수를 이용하면 된다. <code>plot</code> 함수는 두 개의 인자(argument)를 <code>plot(x,y)</code>와 같이 요구하는데 첫 번째 인자는 x축으로 이용할 변수이고 두 번째 인자는 y 축으로 이용할 변수이다.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="basic.html#cb136-1"></a><span class="kw">plot</span>(cars<span class="op">$</span>speed, cars<span class="op">$</span>dist)</span></code></pre></div>
+<p><img src="Rtututorial_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="basic.html#cb137-1"></a>a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="fl">0.1</span>)</span>
+<span id="cb137-2"><a href="basic.html#cb137-2"></a>a</span></code></pre></div>
+<pre><code>##  [1]  5.0  5.1  5.2  5.3  5.4  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4
+## [16]  6.5  6.6  6.7  6.8  6.9  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9
+## [31]  8.0  8.1  8.2  8.3  8.4  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3  9.4
+## [46]  9.5  9.6  9.7  9.8  9.9 10.0</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="basic.html#cb139-1"></a>b &lt;-<span class="st"> </span><span class="kw">exp</span>(a)</span>
+<span id="cb139-2"><a href="basic.html#cb139-2"></a>b</span></code></pre></div>
+<pre><code>##  [1]   148.4132   164.0219   181.2722   200.3368   221.4064   244.6919
+##  [7]   270.4264   298.8674   330.2996   365.0375   403.4288   445.8578
+## [13]   492.7490   544.5719   601.8450   665.1416   735.0952   812.4058
+## [19]   897.8473   992.2747  1096.6332  1211.9671  1339.4308  1480.2999
+## [25]  1635.9844  1808.0424  1998.1959  2208.3480  2440.6020  2697.2823
+## [31]  2980.9580  3294.4681  3640.9503  4023.8724  4447.0667  4914.7688
+## [37]  5431.6596  6002.9122  6634.2440  7331.9735  8103.0839  8955.2927
+## [43]  9897.1291 10938.0192 12088.3807 13359.7268 14764.7816 16317.6072
+## [49] 18033.7449 19930.3704 22026.4658</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="basic.html#cb141-1"></a><span class="kw">plot</span>(a,b)</span></code></pre></div>
+<p><img src="Rtututorial_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dataframe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rtututorial.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>제 4 장 데이터 다루기 | R 을 이용한 데이터 과학 입문</title>
+  <meta name="description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="제 4 장 데이터 다루기 | R 을 이용한 데이터 과학 입문" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="제 4 장 데이터 다루기 | R 을 이용한 데이터 과학 입문" />
+  
+  <meta name="twitter:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  
+
+<meta name="author" content="서울시립대학교 통계학과 이용희" />
+
+
+<meta name="date" content="2022-01-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic.html"/>
+<link rel="next" href="external.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R 을 이용한 데이터 과학 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 서론</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> R 소개</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#통계패키지-r"><i class="fa fa-check"></i><b>2.1</b> 통계패키지 R</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#r-다운로드-받기"><i class="fa fa-check"></i><b>2.2</b> R 다운로드 받기</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#rstudio-다운로드-받기"><i class="fa fa-check"></i><b>2.3</b> Rstudio 다운로드 받기</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>3</b> R 기초</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic.html"><a href="basic.html#r-의-계산기-기능"><i class="fa fa-check"></i><b>3.1</b> R 의 계산기 기능</a></li>
+<li class="chapter" data-level="3.2" data-path="basic.html"><a href="basic.html#기본-수학함수"><i class="fa fa-check"></i><b>3.2</b> 기본 수학함수</a></li>
+<li class="chapter" data-level="3.3" data-path="basic.html"><a href="basic.html#도움말"><i class="fa fa-check"></i><b>3.3</b> 도움말</a></li>
+<li class="chapter" data-level="3.4" data-path="basic.html"><a href="basic.html#벡터"><i class="fa fa-check"></i><b>3.4</b> 벡터</a></li>
+<li class="chapter" data-level="3.5" data-path="basic.html"><a href="basic.html#벡터에-대한-함수의-적용"><i class="fa fa-check"></i><b>3.5</b> 벡터에 대한 함수의 적용</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="basic.html"><a href="basic.html#데이타프레임"><i class="fa fa-check"></i><b>3.5.1</b> 데이타프레임</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="basic.html"><a href="basic.html#간단한-그림-그리기"><i class="fa fa-check"></i><b>3.6</b> 간단한 그림 그리기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataframe.html"><a href="dataframe.html"><i class="fa fa-check"></i><b>4</b> 데이터 다루기</a><ul>
+<li class="chapter" data-level="4.1" data-path="dataframe.html"><a href="dataframe.html#tidyr-패키지"><i class="fa fa-check"></i><b>4.1</b> <strong>tidyr</strong> 패키지</a></li>
+<li class="chapter" data-level="4.2" data-path="dataframe.html"><a href="dataframe.html#gather"><i class="fa fa-check"></i><b>4.2</b> <code>gather()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="dataframe.html"><a href="dataframe.html#spread"><i class="fa fa-check"></i><b>4.3</b> <code>spread()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="dataframe.html"><a href="dataframe.html#dplyr-패키지와-연결-연산자"><i class="fa fa-check"></i><b>4.4</b> <strong>dplyr</strong> 패키지와 연결 연산자 <strong>%&gt;%</strong></a></li>
+<li class="chapter" data-level="4.5" data-path="dataframe.html"><a href="dataframe.html#select"><i class="fa fa-check"></i><b>4.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="dataframe.html"><a href="dataframe.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.7" data-path="dataframe.html"><a href="dataframe.html#연결연산자-의-이용"><i class="fa fa-check"></i><b>4.7</b> 연결연산자 <code>%&gt;%</code>의 이용</a></li>
+<li class="chapter" data-level="4.8" data-path="dataframe.html"><a href="dataframe.html#arrange"><i class="fa fa-check"></i><b>4.8</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.9" data-path="dataframe.html"><a href="dataframe.html#mutate"><i class="fa fa-check"></i><b>4.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="dataframe.html"><a href="dataframe.html#group_by-와-summarise"><i class="fa fa-check"></i><b>4.10</b> <code>group_by()</code> 와 <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.11" data-path="dataframe.html"><a href="dataframe.html#join"><i class="fa fa-check"></i><b>4.11</b> <code>join()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="external.html"><a href="external.html"><i class="fa fa-check"></i><b>5</b> 외부자료</a><ul>
+<li class="chapter" data-level="5.1" data-path="external.html"><a href="external.html#예제-엑셀-화일의-구성"><i class="fa fa-check"></i><b>5.1</b> 예제: 엑셀 화일의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="external.html"><a href="external.html#패키지의-설치와-이용-지정"><i class="fa fa-check"></i><b>5.2</b> 패키지의 설치와 이용 지정</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="external.html"><a href="external.html#패키지-readxl의-설치"><i class="fa fa-check"></i><b>5.2.1</b> 패키지 <code>readxl</code>의 설치</a></li>
+<li class="chapter" data-level="5.2.2" data-path="external.html"><a href="external.html#패키지의-지정"><i class="fa fa-check"></i><b>5.2.2</b> 패키지의 지정</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="external.html"><a href="external.html#엑셀-화일의-입력"><i class="fa fa-check"></i><b>5.3</b> 엑셀 화일의 입력</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="external.html"><a href="external.html#working-directory-지정"><i class="fa fa-check"></i><b>5.3.1</b> <strong>working directory</strong> 지정</a></li>
+<li class="chapter" data-level="5.3.2" data-path="external.html"><a href="external.html#엑셀-화일의-입력-1"><i class="fa fa-check"></i><b>5.3.2</b> 엑셀 화일의 입력</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="external.html"><a href="external.html#csv-화일의-입력"><i class="fa fa-check"></i><b>5.4</b> CSV 화일의 입력</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 을 이용한 데이터 과학 입문</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\pardiff}[2]{\frac{\partial #1}{\partial #2 }}
+\newcommand{\pardiffl}[2]{{\partial #1}/{\partial #2 }}
+\newcommand{\pardiffd}[2]{\frac{\partial^2 #1}{\partial #2^t \partial #2 }}
+\newcommand{\pardiffdd}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3 }}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\hatmat}{\bm X ({\bm X}^t {\bm X} )^{-1} {\bm X}^t}
+\newcommand{\hatmatt}[1]{\bm X_{#1} ({\bm X}_{#1}^t {\bm X}_{#1})^{-1} {\bm X}_{#1}^t}
+\)
+<div id="dataframe" class="section level1">
+<h1><span class="header-section-number">제 4 장</span> 데이터 다루기</h1>
+<p><strong>R</strong> 프로그램을 이용한 자료의 처리와 시각화의 기초를 다음의 3개의 패키지를 이용하여 알아보도록 하자.</p>
+<ul>
+<li><strong>dplyr</strong> : <strong>R</strong>의 기본적인 <strong>data.frame</strong>에서 자료를 조건에 따라 선택하고, 배열하고, 결합하고, 요약하는데 편리한 함수을 제공하는 패키지이다.</li>
+<li><strong>tidyr</strong> : 자료를 조건에 따라 배열을 바꾸는 함수를 제공하는 패키지이다.</li>
+<li><strong>ggplot2</strong> : 다양한 그림을 그리는데 유용한 패키지이다.</li>
+</ul>
+<p>통계분석을 위하여 구성된 자료는 매우 다양한 형태를 가질 수 있다. 자료를 저장하는 형식은 자료를 구성하는 방법에 의해 매우 다르게 나타난다. 자료를 다음과 같이 간결하게 재구성하면 일관성있게 통계분석을 위한 함수를 사용할 수 있다. 다음은 자료를 재구성하는 경우의 원칙이다.</p>
+<ul>
+<li>데이터 프레임의 각 열은 변수(variable, feature)를 나타낸다.</li>
+<li>데이터 프레임의 각 행은 조사 또는 관측 단위(observation)을 나타낸다.</li>
+</ul>
+<div class="figure">
+<img src="myimages/tidy-1.png" alt="" />
+<p class="caption">간결한 자료: tydy data</p>
+</div>
+<div id="tidyr-패키지" class="section level2">
+<h2><span class="header-section-number">4.1</span> <strong>tidyr</strong> 패키지</h2>
+<p><strong>tidyr</strong> 에 조건에 따라 자료를 재배치하는데 매우 유용한 패키지이다. 여러 개의 유용한 함수들중에서 가장 자주 사용되고 중요한 4개의 함수에 대하여 알아보기로 하자.</p>
+</div>
+<div id="gather" class="section level2">
+<h2><span class="header-section-number">4.2</span> <code>gather()</code></h2>
+<p><code>gather()</code> 함수는 여러 개의 변수(속성들)을 선택하여 변수의 속성(key)과 각 해당하는 자료의 값(value)를 두 개의 열로 길게 배열하는 함수이다.</p>
+<p>간단한 예를 들면 전자판매점에서 3명의 점원이 판매한 3개의 품목의 수량을 나타내는 자료이다.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="dataframe.html#cb142-1"></a>sales &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb142-2"><a href="dataframe.html#cb142-2"></a>  <span class="dt">person =</span> <span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Steve&quot;</span>),</span>
+<span id="cb142-3"><a href="dataframe.html#cb142-3"></a>  <span class="dt">tv =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb142-4"><a href="dataframe.html#cb142-4"></a>  <span class="dt">cellphone =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>),</span>
+<span id="cb142-5"><a href="dataframe.html#cb142-5"></a>  <span class="dt">computer =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb142-6"><a href="dataframe.html#cb142-6"></a>)</span>
+<span id="cb142-7"><a href="dataframe.html#cb142-7"></a>sales</span></code></pre></div>
+<pre><code>##   person tv cellphone computer
+## 1   John  2        20        4
+## 2   Mary  1        25        4
+## 3  Steve  3        30        4</code></pre>
+<p>위의 <code>sales</code> 자료에서 <code>tv</code>, <code>cellphone</code>,<code>computer</code> 는 판매점에 진영된 여러 가지 품목(<code>item</code>)중의 하나이다. 또한 자료에 있는 숫자들은 각 품목을 판매한 수량(<code>quantity</code>)이다. 3개의 제품을 속성(key 또는 attribute)으로 가지는 <strong>품목</strong>을 새로운 변수 <code>item</code> 으로 만들고, 각 품목에 대한 판매 <strong>수량</strong>이 새로운 변수 <code>quantity</code>로 나타나는 자료를 다음과 같이 만들 수 있다.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="dataframe.html#cb144-1"></a>gathered_sales &lt;-<span class="st"> </span><span class="kw">gather</span>(sales, item, quantity, tv, cellphone,computer)</span>
+<span id="cb144-2"><a href="dataframe.html#cb144-2"></a>gathered_sales</span></code></pre></div>
+<pre><code>##   person      item quantity
+## 1   John        tv        2
+## 2   Mary        tv        1
+## 3  Steve        tv        3
+## 4   John cellphone       20
+## 5   Mary cellphone       25
+## 6  Steve cellphone       30
+## 7   John  computer        4
+## 8   Mary  computer        4
+## 9  Steve  computer        4</code></pre>
+<p><code>gather()</code> 함수는 행으로 길게 늘어진 자료를 열로 길게 즐어지게 만드는 기능을 하는 함수이다.
+<img src="myimages/plot-gather.png" alt="gather()함수의 기능" /></p>
+</div>
+<div id="spread" class="section level2">
+<h2><span class="header-section-number">4.3</span> <code>spread()</code></h2>
+<p><code>spread()</code> 함수의 기능은 <code>gether()</code>함수와 반대되는 작업을 수행하는 함수로 2개의 열(하나는 속성, 다른 하나는 값) 선택하여 변수의 속성들을 변수들로 변환하여 해당하는 자료의 값 하나의 행으로 길게 배열하는 함수이다. 위에서 <code>gather()</code>함수로 변환된 자료를 <code>spread()</code> 함수를 이용하여 다시 원래 자료로 변화할 수 있다.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="dataframe.html#cb146-1"></a>spread_sales &lt;-<span class="st"> </span><span class="kw">spread</span>(gathered_sales, item, quantity)</span>
+<span id="cb146-2"><a href="dataframe.html#cb146-2"></a>spread_sales</span></code></pre></div>
+<pre><code>##   person cellphone computer tv
+## 1   John        20        4  2
+## 2   Mary        25        4  1
+## 3  Steve        30        4  3</code></pre>
+<p><code>spread()</code> 함수는 열으로 길게 늘어진 자료를 행로 길게 즐어지게 만드는 기능을 하는 함수이다.
+<img src="myimages/plot-spread.png" alt="spread()함수의 기능" /></p>
+</div>
+<div id="dplyr-패키지와-연결-연산자" class="section level2">
+<h2><span class="header-section-number">4.4</span> <strong>dplyr</strong> 패키지와 연결 연산자 <strong>%&gt;%</strong></h2>
+<p><strong>dplyr</strong> 패키지는 다음과 같은 기능을 가진 함수를 제공한다.</p>
+<ul>
+<li><code>select()</code> 자료의 변수를 부분적으로 선택한다.</li>
+<li><code>filter()</code> 자료를 일부를 주너진 조건에 따라서 선택한다.</li>
+<li><code>arrage()</code> 자료(행)가 배열된 순서를 바꾼다.</li>
+<li><code>mutate()</code> 새로운 변수를 만든다.</li>
+<li><code>group_by()</code> 범주형 변수에 의하여 자료를 그룹으로 나눈다.</li>
+<li><code>summarise()</code> 자료를 주어진 함수에 따라 요약한다.</li>
+<li><code>join()</code> 두 개의 자료를 결합한다.</li>
+</ul>
+<p><strong>dplyr</strong> 패키지에 있는 함수의 기능을 설명하기 위하여 <strong>hflight</strong> 패키지에 포함된 여객기의 비행기록자료를 사용해보자.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="dataframe.html#cb148-1"></a><span class="kw">library</span>(hflights)</span>
+<span id="cb148-2"><a href="dataframe.html#cb148-2"></a><span class="kw">data</span>(hflights)</span>
+<span id="cb148-3"><a href="dataframe.html#cb148-3"></a><span class="kw">head</span>(hflights)</span></code></pre></div>
+<pre><code>##      Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 5424 2011     1          1         6    1400    1500            AA       428
+## 5425 2011     1          2         7    1401    1501            AA       428
+## 5426 2011     1          3         1    1352    1502            AA       428
+## 5427 2011     1          4         2    1403    1513            AA       428
+## 5428 2011     1          5         3    1405    1507            AA       428
+## 5429 2011     1          6         4    1359    1503            AA       428
+##      TailNum ActualElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
+## 5424  N576AA                60      40      -10        0    IAH  DFW      224
+## 5425  N557AA                60      45       -9        1    IAH  DFW      224
+## 5426  N541AA                70      48       -8       -8    IAH  DFW      224
+## 5427  N403AA                70      39        3        3    IAH  DFW      224
+## 5428  N492AA                62      44       -3        5    IAH  DFW      224
+## 5429  N262AA                64      45       -7       -1    IAH  DFW      224
+##      TaxiIn TaxiOut Cancelled CancellationCode Diverted
+## 5424      7      13         0                         0
+## 5425      6       9         0                         0
+## 5426      5      17         0                         0
+## 5427      9      22         0                         0
+## 5428      9       9         0                         0
+## 5429      6      13         0                         0</code></pre>
+</div>
+<div id="select" class="section level2">
+<h2><span class="header-section-number">4.5</span> <code>select()</code></h2>
+<p><code>select()</code> 함수는 자료의 변수를 부분적으로 선택한다. 다음은 <code>hflights</code>자료에서 3개의 변수를 이름으로 선택하는 경우이다.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="dataframe.html#cb150-1"></a><span class="kw">head</span>(<span class="kw">select</span>(hflights, DepTime, ArrTime, FlightNum))</span></code></pre></div>
+<pre><code>##      DepTime ArrTime FlightNum
+## 5424    1400    1500       428
+## 5425    1401    1501       428
+## 5426    1352    1502       428
+## 5427    1403    1513       428
+## 5428    1405    1507       428
+## 5429    1359    1503       428</code></pre>
+<p>다음은 변수들의 순서를 주거나 (<code>var1:var2</code>) 특정 문자가 변수명에 포함된 변수를 선택하는 경우이다.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="dataframe.html#cb152-1"></a><span class="kw">head</span>(<span class="kw">select</span>(hflights, Year<span class="op">:</span>Month, <span class="kw">contains</span>(<span class="st">&quot;time&quot;</span>)))</span></code></pre></div>
+<pre><code>##      Year Month DepTime ArrTime ActualElapsedTime AirTime
+## 5424 2011     1    1400    1500                60      40
+## 5425 2011     1    1401    1501                60      45
+## 5426 2011     1    1352    1502                70      48
+## 5427 2011     1    1403    1513                70      39
+## 5428 2011     1    1405    1507                62      44
+## 5429 2011     1    1359    1503                64      45</code></pre>
+<p><code>select()</code> 함수는 <code>starts_with()</code>, <code>ends_with()</code>, <code>matches()</code> 그리고 <code>contains()</code>와 같은 도움 함수들을 이용하여 변수명을 선택할 수 있다.</p>
+</div>
+<div id="filter" class="section level2">
+<h2><span class="header-section-number">4.6</span> <code>filter()</code></h2>
+<p><code>filter()</code> 함수는 자료를 일부를 주너진 조건에 따라서 선택한다. <code>hflights</code>자료에서 12월 25일에 출발한 비행기만을 선택하는 조건을 다음과 같이 적용할 수 있다.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="dataframe.html#cb154-1"></a><span class="kw">head</span>(<span class="kw">filter</span>(hflights, Month<span class="op">==</span><span class="dv">12</span>, DayofMonth<span class="op">==</span><span class="dv">25</span>))</span></code></pre></div>
+<pre><code>##   Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 1 2011    12         25         7     609     920            AA       466
+## 2 2011    12         25         7    1155    1317            AA       865
+## 3 2011    12         25         7    1739    2110            AA      1294
+## 4 2011    12         25         7    1339    1701            AA      1496
+## 5 2011    12         25         7    1437    1543            AA      1740
+## 6 2011    12         25         7     905    1020            AA      1788
+##   TailNum ActualElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
+## 1  N3FKAA               131     115        0        9    IAH  MIA      964
+## 2  N4WTAA                82      40       12        0    IAH  DFW      224
+## 3  N3CEAA               151     114       10        4    IAH  MIA      964
+## 4  N3CPAA               142     114       11       14    IAH  MIA      964
+## 5  N528AA                66      39       -7       -3    IAH  DFW      224
+## 6  N4YNAA                75      39        0        0    IAH  DFW      224
+##   TaxiIn TaxiOut Cancelled CancellationCode Diverted
+## 1      5      11         0                         0
+## 2      9      33         0                         0
+## 3     26      11         0                         0
+## 4      9      19         0                         0
+## 5     11      16         0                         0
+## 6      8      28         0                         0</code></pre>
+<p>두 조건을 <strong>OR</strong> 로 하여 자료의 일부를 선택하려면 <code>|</code> 연산자를 이용한다.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="dataframe.html#cb156-1"></a><span class="kw">filter</span>(hflights, UniqueCarrier<span class="op">==</span><span class="st">&quot;AA&quot;</span> <span class="op">|</span><span class="st"> </span>UniqueCarrier<span class="op">==</span><span class="st">&quot;UA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##   Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 1 2011     1          1         6    1400    1500            AA       428
+## 2 2011     1          2         7    1401    1501            AA       428
+## 3 2011     1          3         1    1352    1502            AA       428
+## 4 2011     1          4         2    1403    1513            AA       428
+## 5 2011     1          5         3    1405    1507            AA       428
+## 6 2011     1          6         4    1359    1503            AA       428
+##   TailNum ActualElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
+## 1  N576AA                60      40      -10        0    IAH  DFW      224
+## 2  N557AA                60      45       -9        1    IAH  DFW      224
+## 3  N541AA                70      48       -8       -8    IAH  DFW      224
+## 4  N403AA                70      39        3        3    IAH  DFW      224
+## 5  N492AA                62      44       -3        5    IAH  DFW      224
+## 6  N262AA                64      45       -7       -1    IAH  DFW      224
+##   TaxiIn TaxiOut Cancelled CancellationCode Diverted
+## 1      7      13         0                         0
+## 2      6       9         0                         0
+## 3      5      17         0                         0
+## 4      9      22         0                         0
+## 5      9       9         0                         0
+## 6      6      13         0                         0</code></pre>
+</div>
+<div id="연결연산자-의-이용" class="section level2">
+<h2><span class="header-section-number">4.7</span> 연결연산자 <code>%&gt;%</code>의 이용</h2>
+<p>위의 프로그램에서 앞에서와 다르게 <code>head()</code>함수를 <code>head(filter(....))</code>와 같이 축차적으로 사용하지 않고 연산자 <code>%&gt;%</code> 뒤에 인자없이 사용하였다. 연산자 <code>%&gt;%</code>는 연결 연산자(pipe operator)라고 하며 함수를 축차적으로 연속하여 사용하지 않고 왼쪽에서 생성된 자료를 오른쪽 함수의 인자로 전달 해주는 역활을 하는 유용한 연산자이며 이를 이용하려면 <code>tidyr</code> 패키지를 로딩해야 한다.</p>
+<p>예를 들어 <code>hflights</code>자료에서 12월 25일에 출발한 비행기만을 선택하고 다시 몇 개의 변수만 선택하여 자료의 앞부분만 보여주고 싶다면 다음과 같이 연결 연산자를 이용하여 실행할 수 있다.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="dataframe.html#cb158-1"></a><span class="kw">filter</span>(hflights, Month<span class="op">==</span><span class="dv">12</span>, DayofMonth<span class="op">==</span><span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(DepTime, ArrTime, FlightNum, <span class="kw">contains</span>(<span class="st">&quot;Month&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##   DepTime ArrTime FlightNum Month DayofMonth
+## 1     609     920       466    12         25
+## 2    1155    1317       865    12         25
+## 3    1739    2110      1294    12         25
+## 4    1339    1701      1496    12         25
+## 5    1437    1543      1740    12         25
+## 6     905    1020      1788    12         25</code></pre>
+<p>위에서 연결 연산자를 이용하여 실행한 명령어는 다음 명령어의 결과와 같다.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="dataframe.html#cb160-1"></a>t1 &lt;-<span class="st"> </span><span class="kw">filter</span>(hflights, Month<span class="op">==</span><span class="dv">12</span>, DayofMonth<span class="op">==</span><span class="dv">25</span>) </span>
+<span id="cb160-2"><a href="dataframe.html#cb160-2"></a>t2 &lt;-<span class="st"> </span><span class="kw">select</span>(t1, DepTime, ArrTime, FlightNum, <span class="kw">contains</span>(<span class="st">&quot;Month&quot;</span>)) </span>
+<span id="cb160-3"><a href="dataframe.html#cb160-3"></a><span class="kw">head</span>(t2)</span></code></pre></div>
+<pre><code>##   DepTime ArrTime FlightNum Month DayofMonth
+## 1     609     920       466    12         25
+## 2    1155    1317       865    12         25
+## 3    1739    2110      1294    12         25
+## 4    1339    1701      1496    12         25
+## 5    1437    1543      1740    12         25
+## 6     905    1020      1788    12         25</code></pre>
+</div>
+<div id="arrange" class="section level2">
+<h2><span class="header-section-number">4.8</span> <code>arrange()</code></h2>
+<p><code>arrage()</code> 함수는 자료의 행이 배열된 순서를 선택된 변수의 배열(오름차순 또는 내림차순)로 바꾼다.</p>
+<p><code>hflights</code> 자료에서 두 변수 <code>TailNum</code>와 <code>ArrDelay</code>만을 선택하고 <code>ArrDelay</code>의 자료의 오름차순으로 다시 배열하려면 다음과 같은 명령어를 사용한다.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="dataframe.html#cb162-1"></a>hflights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(TailNum, ArrDelay) <span class="op">%&gt;%</span></span>
+<span id="cb162-2"><a href="dataframe.html#cb162-2"></a><span class="st">    </span><span class="kw">arrange</span>(ArrDelay) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##   TailNum ArrDelay
+## 1  N12157      -70
+## 2  N814SK      -57
+## 3  N767SK      -56
+## 4  N783SK      -56
+## 5  N713SK      -55
+## 6  N37437      -55</code></pre>
+<p><code>ArrDelay</code>의 자료의 오름차순으로 다시 배열하려면 <code>desc()</code> 도움함수를 사용한다.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="dataframe.html#cb164-1"></a>hflights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(TailNum, ArrDelay) <span class="op">%&gt;%</span></span>
+<span id="cb164-2"><a href="dataframe.html#cb164-2"></a><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(ArrDelay)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##   TailNum ArrDelay
+## 1  N473AA      978
+## 2  N69063      957
+## 3  N502MQ      918
+## 4  N670UA      861
+## 5  N609MQ      822
+## 6  N6EAMQ      793</code></pre>
+</div>
+<div id="mutate" class="section level2">
+<h2><span class="header-section-number">4.9</span> <code>mutate()</code></h2>
+<p><code>mutate()</code> 함수는 새로운 변수를 생성하는 함수이다. 예를 들어 <code>hflight</code>자료에서
+새로운 변수 비행기의 속도(<code>AirSpeed</code>)를 계산하려면 비행거리(<code>Distance</code>)를 비행시간(<code>AirTime</code>)으로 나누어야 한다. <code>mutate()</code> 함수를 이용하면 두 개 이상의 새로운 변수를 사용할 수 있다.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="dataframe.html#cb166-1"></a><span class="kw">mutate</span>(hflights, <span class="dt">Speed =</span> Distance<span class="op">/</span>AirTime<span class="op">*</span><span class="dv">69</span>, <span class="dt">SpeedKM =</span> Speed<span class="op">*</span><span class="fl">1.60934</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##      Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 5424 2011     1          1         6    1400    1500            AA       428
+## 5425 2011     1          2         7    1401    1501            AA       428
+## 5426 2011     1          3         1    1352    1502            AA       428
+## 5427 2011     1          4         2    1403    1513            AA       428
+## 5428 2011     1          5         3    1405    1507            AA       428
+## 5429 2011     1          6         4    1359    1503            AA       428
+##      TailNum ActualElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
+## 5424  N576AA                60      40      -10        0    IAH  DFW      224
+## 5425  N557AA                60      45       -9        1    IAH  DFW      224
+## 5426  N541AA                70      48       -8       -8    IAH  DFW      224
+## 5427  N403AA                70      39        3        3    IAH  DFW      224
+## 5428  N492AA                62      44       -3        5    IAH  DFW      224
+## 5429  N262AA                64      45       -7       -1    IAH  DFW      224
+##      TaxiIn TaxiOut Cancelled CancellationCode Diverted    Speed  SpeedKM
+## 5424      7      13         0                         0 386.4000 621.8490
+## 5425      6       9         0                         0 343.4667 552.7546
+## 5426      5      17         0                         0 322.0000 518.2075
+## 5427      9      22         0                         0 396.3077 637.7938
+## 5428      9       9         0                         0 351.2727 565.3173
+## 5429      6      13         0                         0 343.4667 552.7546</code></pre>
+<p>새로 생성된 변수만 선택하고 싶다면 <code>transmute()</code>함수를 사용한다.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="dataframe.html#cb168-1"></a><span class="kw">transmute</span>(hflights, <span class="dt">Speed =</span> Distance<span class="op">/</span>AirTime<span class="op">*</span><span class="dv">69</span>, <span class="dt">SpeedKM =</span> Speed<span class="op">*</span><span class="fl">1.60934</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>##         Speed  SpeedKM
+## 5424 386.4000 621.8490
+## 5425 343.4667 552.7546
+## 5426 322.0000 518.2075
+## 5427 396.3077 637.7938
+## 5428 351.2727 565.3173
+## 5429 343.4667 552.7546</code></pre>
+</div>
+<div id="group_by-와-summarise" class="section level2">
+<h2><span class="header-section-number">4.10</span> <code>group_by()</code> 와 <code>summarise()</code></h2>
+<p>통계분석에서 범주(categorical variable)에 따라 자료의 요약을 하는 것은 매우 흔한 일이다. <code>group_by()</code> 함수는 자료를 선택된 범주형 변수에 의하여 묶어주는 기능을 하며 <code>group_by()</code> 함수는 특별한 결과를 생성하지 않고 자료(<code>dataframe</code>)에 그룹에 대한 정보를 저장한다.</p>
+<p><code>group_by()</code> 에 의하여 그룹이 생성된 자료(<code>dataframe</code>)에 <code>summarise()</code>를 이용하여 통계 함수를 적용하면 지정된 그룹별로 요약 통계량이 기술된다.</p>
+<p>다음의 예는 <code>hflight</code> 자료에서 도착공항별(<code>Dest</code>)로 도착이 지연된 시간(<code>ArrDelay</code>)의 평균을 구하는 명령어이다.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="dataframe.html#cb170-1"></a>groupdata &lt;-<span class="st"> </span><span class="kw">group_by</span>(hflights, Dest)</span>
+<span id="cb170-2"><a href="dataframe.html#cb170-2"></a><span class="kw">summarise</span>(groupdata, <span class="dt">avg_delay =</span> <span class="kw">mean</span>(ArrDelay, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 116 × 2
+##    Dest  avg_delay
+##    &lt;chr&gt;     &lt;dbl&gt;
+##  1 ABQ        7.23
+##  2 AEX        5.84
+##  3 AGS        4   
+##  4 AMA        6.84
+##  5 ANC       26.1 
+##  6 ASE        6.79
+##  7 ATL        8.23
+##  8 AUS        7.45
+##  9 AVL        9.97
+## 10 BFL      -13.2 
+## # … with 106 more rows</code></pre>
+<p>위의 명령어는 다음 명령어와 같은 결과를 준다.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="dataframe.html#cb172-1"></a>hflights <span class="op">%&gt;%</span></span>
+<span id="cb172-2"><a href="dataframe.html#cb172-2"></a><span class="st">    </span><span class="kw">group_by</span>(Dest) <span class="op">%&gt;%</span></span>
+<span id="cb172-3"><a href="dataframe.html#cb172-3"></a><span class="st">     </span><span class="kw">summarise</span>(<span class="dt">avg_delay =</span> <span class="kw">mean</span>(ArrDelay, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 116 × 2
+##    Dest  avg_delay
+##    &lt;chr&gt;     &lt;dbl&gt;
+##  1 ABQ        7.23
+##  2 AEX        5.84
+##  3 AGS        4   
+##  4 AMA        6.84
+##  5 ANC       26.1 
+##  6 ASE        6.79
+##  7 ATL        8.23
+##  8 AUS        7.45
+##  9 AVL        9.97
+## 10 BFL      -13.2 
+## # … with 106 more rows</code></pre>
+<p>물론 그룹을 지정하지 않고 전체 자료의 통계도 구할 수 있다.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="dataframe.html#cb174-1"></a><span class="kw">summarise</span>(hflights,<span class="dt">avg_delay =</span> <span class="kw">mean</span>(ArrDelay, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</span></code></pre></div>
+<pre><code>##   avg_delay
+## 1  7.094334</code></pre>
+<p>또한 다음과 같이 여러 개의 통계량을 동시에 구할 수 있다.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="dataframe.html#cb176-1"></a>groupdata &lt;-<span class="st"> </span><span class="kw">group_by</span>(hflights, Dest)</span>
+<span id="cb176-2"><a href="dataframe.html#cb176-2"></a><span class="kw">summarise</span>(groupdata, <span class="dt">avg_delay =</span> <span class="kw">mean</span>(ArrDelay, <span class="dt">na.rm=</span><span class="ot">TRUE</span>), </span>
+<span id="cb176-3"><a href="dataframe.html#cb176-3"></a>  <span class="dt">count =</span> <span class="kw">n</span>(),</span>
+<span id="cb176-4"><a href="dataframe.html#cb176-4"></a>  <span class="dt">dist =</span> <span class="kw">mean</span>(Distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb176-5"><a href="dataframe.html#cb176-5"></a>  <span class="dt">delay =</span> <span class="kw">mean</span>(ArrDelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 116 × 5
+##    Dest  avg_delay count  dist  delay
+##    &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ABQ        7.23  2812  749.   7.23
+##  2 AEX        5.84   724  190    5.84
+##  3 AGS        4        1  821    4   
+##  4 AMA        6.84  1297  518.   6.84
+##  5 ANC       26.1    125 3266   26.1 
+##  6 ASE        6.79   125  914.   6.79
+##  7 ATL        8.23  7886  692.   8.23
+##  8 AUS        7.45  5022  143.   7.45
+##  9 AVL        9.97   350  834    9.97
+## 10 BFL      -13.2    504 1428  -13.2 
+## # … with 106 more rows</code></pre>
+<p>여러 개의 변수에 같은 함수를 동시에 적용하려면 <code>summarise_at()</code> 함수를 사용한다. 다음은 공항별로 2개의 변수( <code>ArrDelay</code>, <code>DepDelay</code>)의 평균, 최소, 최대값을 구하는 명령어이다.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="dataframe.html#cb178-1"></a><span class="kw">group_by</span>(hflights, Dest)  <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">summarise_at</span>( <span class="kw">c</span>(<span class="st">&quot;ArrDelay&quot;</span>, <span class="st">&quot;DepDelay&quot;</span>), <span class="kw">funs</span>(<span class="kw">mean</span>(., <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="kw">min</span> (., <span class="dt">na.rm=</span><span class="ot">TRUE</span>),   <span class="kw">max</span>(., <span class="dt">na.rm=</span><span class="ot">TRUE</span>)))</span></code></pre></div>
+<pre><code>## Warning: `funs()` was deprecated in dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## # A tibble: 116 × 7
+##    Dest  ArrDelay_mean DepDelay_mean ArrDelay_min DepDelay_min ArrDelay_max
+##    &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;
+##  1 ABQ            7.23          8.48          -26          -14          290
+##  2 AEX            5.84          6.38          -34          -17          257
+##  3 AGS            4            10               4           10            4
+##  4 AMA            6.84          6.70          -28          -13          301
+##  5 ANC           26.1          25.0           -21           -6          281
+##  6 ASE            6.79         16.0           -31          -33          252
+##  7 ATL            8.23         10.3           -41          -17          701
+##  8 AUS            7.45          8.42          -24          -15          244
+##  9 AVL            9.97          8.90          -23          -10          331
+## 10 BFL          -13.2           5.06          -56          -13          206
+## # … with 106 more rows, and 1 more variable: DepDelay_max &lt;int&gt;</code></pre>
+<p>위에서 함수 <code>summarise</code>의 결과는 <strong>dataframe</strong>보다 자료 저장의 형식이 개선된<br />
+<code>tibble</code> 형식으로 표시된다.</p>
+</div>
+<div id="join" class="section level2">
+<h2><span class="header-section-number">4.11</span> <code>join()</code></h2>
+<p><code>join()</code> 함수는 두 자료(<code>dataframe</code>)를 선택된 공통의 범주형 변수에 의거하여 결합한다. 결합하는 경우 두 개의 인자의 위치에 따른 4가지의 결합기준을 이용할 수 있다.</p>
+<ul>
+<li>left_join 왼쪽 자료의 항목을 기준으로 결합</li>
+<li>right_join 오른쪽 쪽 자료의 항목을 기준으로 결합</li>
+<li>inner_join 두 자료의 공통 항목만을 결합</li>
+<li>full_join 두 자료의 모든 항목을 결합
+<img src="myimages/plot-join.png" alt="join() 함수의 4가지 기준" /></li>
+</ul>
+<p>다음과 같은 두 개의 자료(<code>dataframe</code>)을 이용하여 자료를 결합할 때 4가지 기분의 차이점을 살펴보자.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="dataframe.html#cb181-1"></a>Ldata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ID=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>), <span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb181-2"><a href="dataframe.html#cb181-2"></a>Rdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ID=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;D&quot;</span>),  <span class="dt">y=</span><span class="kw">c</span>(T,F,T))</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="dataframe.html#cb182-1"></a>Ldata</span></code></pre></div>
+<pre><code>##   ID x
+## 1  A 1
+## 2  B 2
+## 3  C 3</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="dataframe.html#cb184-1"></a>Rdata</span></code></pre></div>
+<pre><code>##   ID     y
+## 1  A  TRUE
+## 2  B FALSE
+## 3  D  TRUE</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="dataframe.html#cb186-1"></a><span class="kw">left_join</span>(Ldata,Rdata,<span class="dt">by=</span><span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
+<pre><code>##   ID x     y
+## 1  A 1  TRUE
+## 2  B 2 FALSE
+## 3  C 3    NA</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="dataframe.html#cb188-1"></a><span class="kw">right_join</span>(Ldata,Rdata,<span class="dt">by=</span><span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
+<pre><code>##   ID  x     y
+## 1  A  1  TRUE
+## 2  B  2 FALSE
+## 3  D NA  TRUE</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="dataframe.html#cb190-1"></a><span class="kw">inner_join</span>(Ldata,Rdata,<span class="dt">by=</span><span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
+<pre><code>##   ID x     y
+## 1  A 1  TRUE
+## 2  B 2 FALSE</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="dataframe.html#cb192-1"></a><span class="kw">full_join</span>(Ldata,Rdata,<span class="dt">by=</span><span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
+<pre><code>##   ID  x     y
+## 1  A  1  TRUE
+## 2  B  2 FALSE
+## 3  C  3    NA
+## 4  D NA  TRUE</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="external.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rtututorial.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>제 5 장 외부자료 | R 을 이용한 데이터 과학 입문</title>
+  <meta name="description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="제 5 장 외부자료 | R 을 이용한 데이터 과학 입문" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="제 5 장 외부자료 | R 을 이용한 데이터 과학 입문" />
+  
+  <meta name="twitter:description" content="R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다." />
+  
+
+<meta name="author" content="서울시립대학교 통계학과 이용희" />
+
+
+<meta name="date" content="2022-01-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dataframe.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R 을 이용한 데이터 과학 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 서론</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> R 소개</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#통계패키지-r"><i class="fa fa-check"></i><b>2.1</b> 통계패키지 R</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#r-다운로드-받기"><i class="fa fa-check"></i><b>2.2</b> R 다운로드 받기</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#rstudio-다운로드-받기"><i class="fa fa-check"></i><b>2.3</b> Rstudio 다운로드 받기</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>3</b> R 기초</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic.html"><a href="basic.html#r-의-계산기-기능"><i class="fa fa-check"></i><b>3.1</b> R 의 계산기 기능</a></li>
+<li class="chapter" data-level="3.2" data-path="basic.html"><a href="basic.html#기본-수학함수"><i class="fa fa-check"></i><b>3.2</b> 기본 수학함수</a></li>
+<li class="chapter" data-level="3.3" data-path="basic.html"><a href="basic.html#도움말"><i class="fa fa-check"></i><b>3.3</b> 도움말</a></li>
+<li class="chapter" data-level="3.4" data-path="basic.html"><a href="basic.html#벡터"><i class="fa fa-check"></i><b>3.4</b> 벡터</a></li>
+<li class="chapter" data-level="3.5" data-path="basic.html"><a href="basic.html#벡터에-대한-함수의-적용"><i class="fa fa-check"></i><b>3.5</b> 벡터에 대한 함수의 적용</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="basic.html"><a href="basic.html#데이타프레임"><i class="fa fa-check"></i><b>3.5.1</b> 데이타프레임</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="basic.html"><a href="basic.html#간단한-그림-그리기"><i class="fa fa-check"></i><b>3.6</b> 간단한 그림 그리기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataframe.html"><a href="dataframe.html"><i class="fa fa-check"></i><b>4</b> 데이터 다루기</a><ul>
+<li class="chapter" data-level="4.1" data-path="dataframe.html"><a href="dataframe.html#tidyr-패키지"><i class="fa fa-check"></i><b>4.1</b> <strong>tidyr</strong> 패키지</a></li>
+<li class="chapter" data-level="4.2" data-path="dataframe.html"><a href="dataframe.html#gather"><i class="fa fa-check"></i><b>4.2</b> <code>gather()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="dataframe.html"><a href="dataframe.html#spread"><i class="fa fa-check"></i><b>4.3</b> <code>spread()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="dataframe.html"><a href="dataframe.html#dplyr-패키지와-연결-연산자"><i class="fa fa-check"></i><b>4.4</b> <strong>dplyr</strong> 패키지와 연결 연산자 <strong>%&gt;%</strong></a></li>
+<li class="chapter" data-level="4.5" data-path="dataframe.html"><a href="dataframe.html#select"><i class="fa fa-check"></i><b>4.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="dataframe.html"><a href="dataframe.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.7" data-path="dataframe.html"><a href="dataframe.html#연결연산자-의-이용"><i class="fa fa-check"></i><b>4.7</b> 연결연산자 <code>%&gt;%</code>의 이용</a></li>
+<li class="chapter" data-level="4.8" data-path="dataframe.html"><a href="dataframe.html#arrange"><i class="fa fa-check"></i><b>4.8</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.9" data-path="dataframe.html"><a href="dataframe.html#mutate"><i class="fa fa-check"></i><b>4.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="dataframe.html"><a href="dataframe.html#group_by-와-summarise"><i class="fa fa-check"></i><b>4.10</b> <code>group_by()</code> 와 <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.11" data-path="dataframe.html"><a href="dataframe.html#join"><i class="fa fa-check"></i><b>4.11</b> <code>join()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="external.html"><a href="external.html"><i class="fa fa-check"></i><b>5</b> 외부자료</a><ul>
+<li class="chapter" data-level="5.1" data-path="external.html"><a href="external.html#예제-엑셀-화일의-구성"><i class="fa fa-check"></i><b>5.1</b> 예제: 엑셀 화일의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="external.html"><a href="external.html#패키지의-설치와-이용-지정"><i class="fa fa-check"></i><b>5.2</b> 패키지의 설치와 이용 지정</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="external.html"><a href="external.html#패키지-readxl의-설치"><i class="fa fa-check"></i><b>5.2.1</b> 패키지 <code>readxl</code>의 설치</a></li>
+<li class="chapter" data-level="5.2.2" data-path="external.html"><a href="external.html#패키지의-지정"><i class="fa fa-check"></i><b>5.2.2</b> 패키지의 지정</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="external.html"><a href="external.html#엑셀-화일의-입력"><i class="fa fa-check"></i><b>5.3</b> 엑셀 화일의 입력</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="external.html"><a href="external.html#working-directory-지정"><i class="fa fa-check"></i><b>5.3.1</b> <strong>working directory</strong> 지정</a></li>
+<li class="chapter" data-level="5.3.2" data-path="external.html"><a href="external.html#엑셀-화일의-입력-1"><i class="fa fa-check"></i><b>5.3.2</b> 엑셀 화일의 입력</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="external.html"><a href="external.html#csv-화일의-입력"><i class="fa fa-check"></i><b>5.4</b> CSV 화일의 입력</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 을 이용한 데이터 과학 입문</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\pardiff}[2]{\frac{\partial #1}{\partial #2 }}
+\newcommand{\pardiffl}[2]{{\partial #1}/{\partial #2 }}
+\newcommand{\pardiffd}[2]{\frac{\partial^2 #1}{\partial #2^t \partial #2 }}
+\newcommand{\pardiffdd}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3 }}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\hatmat}{\bm X ({\bm X}^t {\bm X} )^{-1} {\bm X}^t}
+\newcommand{\hatmatt}[1]{\bm X_{#1} ({\bm X}_{#1}^t {\bm X}_{#1})^{-1} {\bm X}_{#1}^t}
+\)
+<div id="external" class="section level1">
+<h1><span class="header-section-number">제 5 장</span> 외부자료</h1>
+<div id="예제-엑셀-화일의-구성" class="section level2">
+<h2><span class="header-section-number">5.1</span> 예제: 엑셀 화일의 구성</h2>
+<p>MS 엑셀화일(Miscrosoft Excel file)은 자료를 저장하고 정리하는데 매우 유용한 프로그램이다. 이번에는 R에서 MS 엑셀화일을 불러들여서 데이카프레임 형식으로 저장하는 방법을 소개한다.</p>
+<p>아래 그림과 같이 2014-2018년의 서울시 구별 인구정보가 <code>test.xlsx</code> 엑셀 화일에 저장되어 있다고 가정하자.</p>
+<ul>
+<li>첫 번째 줄은 각 열을 설명하는 변수의 이름이며 영어문자로 구성되어 있다.</li>
+<li>5개의 변수로 구성된 자료이다. (<code>year</code>, <code>name</code>, <code>house</code>, <code>pop</code>, <code>old65</code>)
+<ul>
+<li><code>year</code>: 년도</li>
+<li><code>name</code> : 구이름</li>
+<li><code>house</code>: 가구수</li>
+<li><code>pop</code> : 인구수</li>
+<li><code>old65</code>: 65세 이상 인구수</li>
+</ul></li>
+<li>한 개의 sheet만 있는 화일이다 (참고로 MS 엑셀화일은 여러 개의 sheet으로 구성될 수 있다.)</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-60"></span>
+<img src="myimages/excelfile.png" alt="2018년 서울시 구별 인구 엑셀 화일" width="90%" />
+<p class="caption">
+그림 5.1: 2018년 서울시 구별 인구 엑셀 화일
+</p>
+</div>
+</div>
+<div id="패키지의-설치와-이용-지정" class="section level2">
+<h2><span class="header-section-number">5.2</span> 패키지의 설치와 이용 지정</h2>
+<div id="패키지-readxl의-설치" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> 패키지 <code>readxl</code>의 설치</h3>
+<p>R은 독자적으로도 여러 가지 다양한 기능을 수행할 수 있는 통계 프로그램이지만 다양한 기능을
+제공하는 패키지(poackage)를 설치하면 더욱 편리한 기능을 이용할 수 있다.</p>
+<p>MS 엑셀화일은 여러 가지 형식(xls, xlsx, csv, …)이 있기 때문에 엑셀화일을 수월하게 읽을 수 있는 패키지 <code>readxl</code>을 설치하여 이용하면 쉽게 엑셀화일의 자료를 데이터프레임으로 변환하여 사용할 수 있다.</p>
+<p>패키지의 설치는 두 가지 방법이 있다.</p>
+<ol style="list-style-type: decimal">
+<li><strong>plot</strong> 패널에서 <code>packages</code> 탭을 클릭하면 install 버튼이 있다. install 버튼을 클릭하면 대화창이 뜨고 설치하고자 하는 패키지의 이름을 입력하여 선택한다. 아래 있는 install 버튼을 클릭하면 패키지를 설치해 준다.</li>
+</ol>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-61"></span>
+<img src="myimages/installpackage.png" alt="Rstudio에서 패키지 설치" width="90%" />
+<p class="caption">
+그림 5.2: Rstudio에서 패키지 설치
+</p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>R의 <strong>console</strong>화면에서 명령어 <code>install.packages</code> 함수를 이용하여 설치한다.</li>
+</ol>
+<pre><code>install.packages(&quot;readxl&quot;)</code></pre>
+</div>
+<div id="패키지의-지정" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> 패키지의 지정</h3>
+<p>패키지 <code>readxl</code>을 설치한 후 그 기능을 이용하고 싶다면 다음과 같이 <code>library</code> 함수를 사용하여 패키지를 지정해 주어야 한다.</p>
+<pre><code>library(readxl)</code></pre>
+<p>참고로 패키지의 설치는 최초 한 번만 해주면된다. 하지만 <code>library</code> 함수를 이용한 패키지의 지정은 사용할 때마다 실행해 주어야 한다.</p>
+</div>
+</div>
+<div id="엑셀-화일의-입력" class="section level2">
+<h2><span class="header-section-number">5.3</span> 엑셀 화일의 입력</h2>
+<div id="working-directory-지정" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> <strong>working directory</strong> 지정</h3>
+<p>이제 <code>test.xlsx</code> 엑셀 화일을 원하는 디렉토리에 저장한다.</p>
+<p>화일을 저장한 디렉토리를 <strong>working directory</strong>로 지정해 주어야 한다. Rstudio 메뉴에서 <strong>session</strong>을 선택하면 <strong>set working directory</strong> 메뉴가 있다. <strong>choose directory</strong>를 선택하고 <code>test.xlsx</code> 엑셀 화일을 저장한 디렉토리를 지정해 준다.</p>
+</div>
+<div id="엑셀-화일의-입력-1" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> 엑셀 화일의 입력</h3>
+<ul>
+<li><code>test.xlsx</code> 엑셀 화일의 자료를 데이터프레임 <code>seoulpop01</code> 에 저장해 주려면 다음과 같은 명령어를 실행한다.</li>
+</ul>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="external.html#cb196-1"></a>seoulpop01 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;./data/test.xlsx&quot;</span>, <span class="dt">col_names =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb196-2"><a href="external.html#cb196-2"></a>seoulpop01</span></code></pre></div>
+<pre><code>## # A tibble: 130 × 5
+##    year  name       house      pop   old65
+##    &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1 2014  합계     4194176 10369593 1221616
+##  2 2014  종로구     73101   165344   24537
+##  3 2014  중구       59960   136227   19960
+##  4 2014  용산구    108429   249914   34896
+##  5 2014  성동구    125814   303891   36684
+##  6 2014  광진구    158524   377375   38974
+##  7 2014  동대문구  159880   376319   50915
+##  8 2014  중랑구    176714   423411   51995
+##  9 2014  성북구    193359   475961   62066
+## 10 2014  강북구    141246   338410   50841
+## # … with 120 more rows</code></pre>
+<p>위에서 엑셀 화일을 읽을 때 다음과 같은 점을 유의하자.</p>
+<ul>
+<li><p>위에서 사용한 함수 <code>read_excel</code>은 패키지 <code>readxl</code>을 설치해야 사용할 수 있는 함수이다.</p></li>
+<li><p>함수 <code>read_excel</code>는 컴마로 분리된 두 가지 인자(arguments)를 받는다. 첫 번째 인자는 문자열로 된 엑셀 화일의 이름이다(<code>"test.xlsx"</code>).</p></li>
+<li><p>두 번째 인자 <code>col_names = TRUE</code> 는 선택 명령어(options)이며 엑셀 화일 <code>"test.xlsx"</code>에서 첫 행이 자료가 아니고 변수의 이름이라는 것을 알려주는 문장이다. 만약 엑셀 화일의 첫 행부터 자료가 시작된다면 <code>col_names = FALSE</code> 라고 지정해야 한다.</p></li>
+<li><p><code>seoulpop01</code>은 데이터프레임 형식이 아닌 <strong>tibble</strong> 형식이며 이는 데이터프레임의 보다 진화된 형식이라고 볼 수 있다.</p></li>
+</ul>
+<p><strong>tibble</strong> 형식의 <code>seoulpop01</code>을 데이터프레임 형식인 <code>seoulpop02</code>으로 함수 <code>data.frame</code> 함수를 이용하여 저장하자.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="external.html#cb198-1"></a>seoulpop02 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(seoulpop01)</span>
+<span id="cb198-2"><a href="external.html#cb198-2"></a><span class="kw">head</span>(seoulpop02, <span class="dt">n=</span><span class="dv">30</span>)</span></code></pre></div>
+<pre><code>##    year     name   house      pop   old65
+## 1  2014     합계 4194176 10369593 1221616
+## 2  2014   종로구   73101   165344   24537
+## 3  2014     중구   59960   136227   19960
+## 4  2014   용산구  108429   249914   34896
+## 5  2014   성동구  125814   303891   36684
+## 6  2014   광진구  158524   377375   38974
+## 7  2014 동대문구  159880   376319   50915
+## 8  2014   중랑구  176714   423411   51995
+## 9  2014   성북구  193359   475961   62066
+## 10 2014   강북구  141246   338410   50841
+## 11 2014   도봉구  136977   355712   46471
+## 12 2014   노원구  221107   586056   66480
+## 13 2014   은평구  202187   503243   67002
+## 14 2014 서대문구  134780   320861   45309
+## 15 2014   마포구  169492   395830   47360
+## 16 2014   양천구  179069   490708   48175
+## 17 2014   강서구  234378   591653   64287
+## 18 2014   구로구  172594   457131   51187
+## 19 2014   금천구  103940   258030   29553
+## 20 2014 영등포구  168100   421436   49829
+## 21 2014   동작구  172389   419261   52327
+## 22 2014   관악구  248180   531960   62577
+## 23 2014   서초구  173469   454288   47469
+## 24 2014   강남구  237375   583446   57444
+## 25 2014   송파구  257207   671794   65025
+## 26 2014   강동구  185905   481332   50253
+## 27 2015     합계 4189948 10297138 1267563
+## 28 2015   종로구   72645   163822   24892
+## 29 2015     중구   59321   134329   20302
+## 30 2015   용산구  107512   247909   35715</code></pre>
+</div>
+</div>
+<div id="csv-화일의-입력" class="section level2">
+<h2><span class="header-section-number">5.4</span> CSV 화일의 입력</h2>
+<p>많은 경우 자료가 CSV(comma-separated values)화일로 저장된다. CSV 화일은 자료의 값(필드)를 쉼표(,) 또는 여백(space)로 구분한 텍스트 데이터 및 텍스트 파일이다. 확장자는 .csv 이며 이 화일은 MS Excel 프로그램으로 볼 수 있다.</p>
+<p>예제 화일인 <strong>seoulpopall.csv</strong>의 실제 내용을 보면 다음과 같다.</p>
+<pre><code>year,name,house,pop,popm,popf,for,density,area,numhouse,old65
+1991,합계,3330317,10904527,5485353,5419174,,18014,605.33,3.27,
+1991,종로구,78169,236806,119127,117679,,9865,24.01,3.03,
+1991,중구,61495,184142,93312,90830,,18438,9.99,2.99,</code></pre>
+<p>CSV 화일은 R 에서 함수 <code>read.table</code>를 이용하여 자료를 불러 올 수 있다. 아래는 <strong>seoulpopall.csv</strong> 화일의 자료를 불러오는 R 명령어이다.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="external.html#cb201-1"></a>df &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./data/seoulpopall.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">fileEncoding =</span> <span class="st">&quot;CP949&quot;</span>)</span></code></pre></div>
+<p>함수 <code>read.table</code>의 세가지 인자를 설명하면 다음과 같다.</p>
+<ul>
+<li><code>"seoulpopall.csv"</code>: 문자열로 된 csv 화일 이름</li>
+<li><code>sep=","</code> : 각 변수의 필드가 쉼표(,)로 분리된 것을 지정한다. 만약 여백(space)으로 구분되어 있다면 <code>sep=""</code>로 지정한다.</li>
+<li><code>header = TRUE</code> : 첫 행이 자료가 아니고 변수의 이름이라는 것을 알려주는 문장이다.</li>
+</ul>
+<p>아래는 <strong>seoulpopall.csv</strong> 화일의 자료가 저장된 데이터프레임 <code>df</code>의 내용이다.
+자료 중에 <code>NA</code>로 표시된 부분은 자료가 없는 것, 즉 결측값(missing value, Not Available)을 의미 한다.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="external.html#cb202-1"></a><span class="kw">head</span>(df)</span></code></pre></div>
+<pre><code>##   year     name   house      pop    popm    popf foreign density   area
+## 1 1991     합계 3330317 10904527 5485353 5419174      NA   18014 605.33
+## 2 1991   종로구   78169   236806  119127  117679      NA    9865  24.01
+## 3 1991     중구   61495   184142   93312   90830      NA   18438   9.99
+## 4 1991   용산구   96696   294341  147914  146427      NA   13460  21.87
+## 5 1991   성동구  244272   789014  401375  387639      NA   23273  33.90
+## 6 1991 동대문구  149914   479776  242828  236948      NA   32477  14.77
+##   numhouse old65
+## 1     3.27    NA
+## 2     3.03    NA
+## 3     2.99    NA
+## 4     3.04    NA
+## 5     3.23    NA
+## 6     3.20    NA</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dataframe.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rtututorial.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
