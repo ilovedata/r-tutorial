@@ -22,6 +22,7 @@ github-repo: rstudio/bookdown-demo
 library(knitr)
 library(tidyverse)
 library(kableExtra)
+library(hflights)
 #library(equatiomatic)
 #library(sjPlot)
 #library(sjmisc)
