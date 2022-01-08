@@ -20,23 +20,15 @@ github-repo: rstudio/bookdown-demo
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
 library(knitr)
-library(ggplot2)
-library(tibble)
-library(readr)
-library(purrr)
-library(dplyr)
-library(stringr)
-library(forcats)
-library(tidyr)
-library(ggplot2)
+library(tidyverse)
 library(kableExtra)
-library(equatiomatic)
-library(sjPlot)
-library(sjmisc)
-library(sjlabelled)
-library(modelsummary)
-library(flextable)
-library(xfun)
+#library(equatiomatic)
+#library(sjPlot)
+#library(sjmisc)
+#library(sjlabelled)
+#library(modelsummary)
+#library(flextable)
+#library(xfun)
 library(readxl)
 
 
@@ -62,16 +54,6 @@ $$ y =f(x) $$
 ```
 library(knitr)
 library(tidyverse)
-library(tidyr)
-library(ggplot2)
-library(kableExtra)
-library(equatiomatic)
-library(sjPlot)
-library(sjmisc)
-library(sjlabelled)
-library(modelsummary)
-library(flextable)
-library(xfun)
 library(readxl)
 ```
 
