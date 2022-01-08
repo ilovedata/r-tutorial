@@ -20,7 +20,13 @@ github-repo: rstudio/bookdown-demo
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
 library(knitr)
-library(tidyverse)
+library(ggplot2)
+library(tibble)
+library(readr)
+library(purrr)
+library(dplyr)
+library(stringr)
+library(forcats)
 library(tidyr)
 library(ggplot2)
 library(kableExtra)
