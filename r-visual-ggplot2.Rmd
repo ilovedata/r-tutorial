@@ -1,0 +1,174 @@
+# `ggplot2` 을 이용한 자료의 시각화 {#ggplot2}
+
+`ggplot2` 패키지는 `R`에서 그림을 그리는 과정을 절차에 따른 요소(components)로 나누어서 각 요소를 차례대로 연산자 `+`를 사용하여  그림판에 추가하는 형식으로 구현된 점이 그 특징이다. 그림을 구성하는  각 요소는 다음과 같다.  
+
+- **data** 그림을 그릴 때 사용되는 데이터프레임(`dataframe`) 
+- **aesthetic mapping** 그림을 그릴 때 사용되는 변수들과 각 변수들이 가지는 역활과 특징(aesthetics)을 지정하는 요소 (`aes`)  
+- **geometric object** 그림의 형태를 지정하는 요소 (`geom_`)
+- **statistical transformations** 각종 통계량을 계산하여 그림에 삽입 (`stat_`)
+- **scales**  자료의 값에 따른 시각화 모양과 축의 비율 (`scale_`)
+- **coordinate system** 두 축에 대한 특성을 설정 (`coor_`)
+- **position adjustments** 두 개의 그림이 겹칠 때 위치 지정 (`position_`)
+- **faceting** 범주형 변수에 의한 그룹에 의한 그림 행렬 지정 (`facet_`)    
+- **theme** 그림의 전체적인 배경을 변경 (`theme_`)
+
+
+## 간단한 그림들  
+
+이제 필요한 패키지를 로딩하고 예제로 사용할 데이터프레임 `diamond`를 부른다. 데이터프레임 `diamond`은 54,000개의 다이아몬드들의 특성에 대한 변수들을 모아놓은 자료이다.  
+```{r setup}
+data("diamonds", package = "ggplot2")  # load the data
+head(diamonds)
+```
+## 히스토그램과 상자그림  
+
+아주 단순한 그림으로  `diamonds`자료에 있는  변수 `carat`(카렛, 무게)의 히스토그램을 그려보자.
+```{r}
+with(diamonds,hist(carat))
+```
+
+
+히스토그램을 `ggplot2` 로 그리려면 다음과 명령어를 사용한다.
+```{r}
+ggplot(diamonds, aes(x = carat)) +  geom_histogram()
+```
+
+위의 명령어에서 `ggplot(diamonds, aes(x = carat))`은 사용할 데이터프레임인 `diamonds`를 지정하고 사용할 축과 해당하는 변수 `x=carat`을 `aes` 도움함수로 지정한다. 
+그리고 `+` 다음에  `geom_histogram()` 함수를 통하여 그림의 형태가  히스토그램임을  지정해준다.
+
+`geom_histogram()` 함수에서 히스토그램의 형태를 결정하는 구간 길이(`bandwidth`)를 변경할 수 있다.
+```{r}
+ggplot(diamonds, aes(carat)) +geom_histogram(binwidth = 0.01)
+```
+
+히스토그램의 구간의 길이를 크게 하고 변수 `cut`(품질)에 따라 자료를 그룹으로 나누어 다른 색깔을 이용하여 그룹별 히스토그램을 하나의 그림에 겹쳐서 그릴 수 있다.
+```{r}
+ggplot(diamonds, aes(price, colour = cut)) +
+  geom_freqpoly(binwidth = 500)
+```
+
+다음으로 상자그림(boxplot)을 그려보자. 자동차 자료 `mpg` 에서 자동차의 종류(`class`)별로  `hwy`(고속도로 연비, highway miles per gallon)의 상자그림을 다음과 같이 그릴 수 있다.
+```{r}
+p <- ggplot(mpg, aes(class, hwy))
+p + geom_boxplot()
+```
+
+ 두 축을 바꾼 상자그림은 다음과 같이 그릴 수 있다. `theme_linedraw()` 는 그림의 전체적인 배경을 바꾸어 주는 요소이다. 
+```{r}
+p + geom_boxplot() + coord_flip() + theme_linedraw()
+```
+
+## 산포도 
+
+미국의 주별 공기 오염도 자료 `USairpollution`를 이용하여 다양한 산점도(scatter plot)을 그리는 방법에 대하여 알아보자.
+```{r}
+library(MVA)
+head(USairpollution)
+```
+다음 명령어가 기본적인 산점도를 그리는 명령어이다.
+```{r}
+g<- ggplot(USairpollution, aes(x=manu, y=popul)) + geom_point()
+g
+```
+
+다음은 산점도에 여러 가지 특징(제목, 축의 이름, 축의 구간 설정, 회귀직선의 추가)를 추가하는 명령어이다.  
+```{r}
+xxlab <- "Manufacturing enterprises with 20 or more workers"
+yylab <- "Population size (1970 census) in thousands"
+g <- g +  ggtitle("Manufacturing vs. Population") + xlab(xxlab) + ylab(yylab)
+g <- g +  coord_cartesian(xlim=c(0,1000), ylim=c(0, 2000))
+g <- g +  geom_smooth(method="lm") 
+g
+```
+
+ 다음은 산점도에서 주어진 그룹뱔로 점의 색깔이나 형태를 다르게 나타내는 명령어이다.
+```{r}
+ p <- ggplot(mtcars, aes(wt, mpg))
+ p + geom_point(aes(colour = factor(cyl)))
+```
+
+```{r}
+ p + geom_point(aes(shape = factor(cyl)), size = 3) + scale_shape(solid = FALSE)
+```
+
+```{r}
+xxlab <- "Manufacturing enterprises with 20 or more workers"
+yylab <- "Population size (1970 census) in thousands"
+g <- g +  ggtitle("Manufacturing vs. Population") + xlab(xxlab) + ylab(yylab)
+g <- g +  coord_cartesian(xlim=c(0,1000), ylim=c(0, 2000))
+g <- g +  geom_smooth(method="lm") 
+g
+```
+
+다변량 변수의 관계를 한눈에 파악할 수 있는 산점도 행렬(scatter plot matrix)는 `ggplot2` 패키지의 확장 패키지인 `GGally`의  `ggpairs()` 명령어로 그릴 수 있다.
+`ggpairs()` 함수를 이용하면 변수들의 산점도뿐만이 아니라 상관계수와 히스토그램까지 볼 수 있다. 
+```{r}
+library("GGally")
+ggpairs(USairpollution)
+```
+
+## 반복측정자료의 시각화 
+
+반복측정자료는 하나의 개체에서 2개 이상의 여러 개 자료를 측정한 자료이다. 
+이러한 자료는 각 개체별로 산점도를 그리는 것이 분석에 큰 도움이 된다. 
+
+**lme4** 패키지에 자료인 `spleepstudy`는 화물트럭 운전사들에 대한 수면부족 현상에 대하여 연구한 자료이다.  18명의 운전자들이 매일 3시간의 수면(부족한 수면)을 하면서  매일 일정한 동작의 반응시간을 10일동안 반복적으로 측정한 자료가 있다. 한명의 운전사에게 10일 동안의 반응에 대한 측정자료 10개가 존재하므로 이는 반복측정 자료이며 이러한 10개의 자료는 독립이 아니다. 
+
+
+
+일단 자료의 구조를 살펴보자. 반응변수 `Reaction`($y_{ij}$)은 반응시간(ms)를 나타내며($i=0,1,2,\dots,18$) 설명변수로서 `Days($t_j$`는 날짜($j=0,1,2,\dots,9$), `Subject`는 운전자의 고유번호를 나타낸다.
+```{r}
+library(lme4)
+str(sleepstudy)
+head(sleepstudy,n=20)
+```
+
+
+각 운전자에 대하여 다음과 같은 단순선형회귀직선을 적합하여 각 산점도에 회귀직선을 포함시키고자 한다.
+
+\[ y_{ij} = \beta_{0i} + \beta_{1i} t_j + e_{ij} \]
+
+개체(운전사)에 대하여 각각 회귀직선을 적합시켜서 절편과 기울기를 구하는 명령은 
+`lmlist()` 함수를 사용한다. 
+```{r}
+coef_res <- lmList(Reaction ~ Days | Subject, sleepstudy)
+coef_res
+```
+
+다음과 같은 `ggplot2`의 명령어로 산점도와 각 개체에 대한 회귀직선을 하나의 그림에 그릴 수 있다. 
+```{r}
+ggplot(sleepstudy, aes(x=Days, y=Reaction,colour=Subject)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm")
+```
+
+
+다음과 같은 `ggplot2`의 명령어로 각 개체에 대한 산점도 행렬를 그릴 수 있다.
+```{r}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+    geom_point(size=0.5) +
+    scale_x_continuous(breaks=0:9) +
+    facet_wrap("Subject", labeller = label_both)
+```
+
+다음과 같은 `ggplot2`의 명령어로 각 개체에 대한 산점도 행렬과 회귀직선을 그릴 수 있다. `facet_wrap("Subject")`은 그림을 각 개체별로 따로 그리는 구성요소이며 `stat_smooth(method = "lm")`는 회귀직선을 추가하는 구성요소이다.   
+
+```{r}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+     geom_point(size=0.5) +
+     stat_smooth(method = "lm",se=F,size=0.5)+
+     facet_wrap("Subject", labeller = label_both)+ 
+     theme_bw()
+```
+
+
+그림을 그릴수 있는 패키지인 `lattice`를 이용하면  각 운전자에 대한 10일 간의 반응속도가 날짜에 대하여 어떻게 변하는 가를 알아보자. `lattice` 패키지는 복잡한 그림을 그리는데 있어서 `ggplot2`보다 그 문법이 더 복잡하여 사용하기 쉽지 않다.  
+```{r}
+library(lattice)
+print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
+             layout = c(6,3), type = c("g", "p", "r"),
+             index.cond = function(x,y) coef(lm(y ~ x))[1],
+             xlab = "Days of sleep deprivation",
+             ylab = "Average reaction time (ms)"))
+```
+

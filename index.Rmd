@@ -1,5 +1,5 @@
 --- 
-title: "R 을 이용한 데이터 과학 입문"
+title: "R 고급 프로그래밍"
 author: "서울시립대학교 통계학과 이용희"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -8,7 +8,7 @@ bibliography: [book.bib, packages.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
- R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다.
+ R 고급 프로그래밍에 대한 온라인 교과서입니다.
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes
@@ -31,6 +31,9 @@ library(hflights)
 #library(flextable)
 #library(xfun)
 library(readxl)
+library(ggplot2)
+
+options(scipen=999)  # turn off scientific notation like 1e+06
 
 
 # 아래 3 문장은 한글을 포함한 ggplot 그림이 포함된 HTML, PDF로 만드는 경우 사용
@@ -48,7 +51,7 @@ is_latex <- knitr::is_latex_output()
 
 R을 사용하여 데이터를 다루는 방법을 소개하는 교과서입니다.
 
-$$ y =f(x) $$
+이 책에서는 모든 벡터와 행렬은 $x$, $X$ 와 같이 보통 글씨체로 표시합니다.
 
 이 책에서 이용한 패키지의 목록은 다음과 같습니다.
 

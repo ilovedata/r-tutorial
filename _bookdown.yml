@@ -1,9 +1,10 @@
 book_filename: "Rtututorial"
 delete_merged_file: true
 rmd_files: ["index.Rmd", 
-            "intro.Rmd",
-            "basic.Rmd",
+        #    "intro.Rmd",
+        #    "basic.Rmd",
             "r-data-handling.rmd",
+            "r-visual-ggplot2.Rmd",
             "external.Rmd"]
 language:
   label:
